@@ -21,8 +21,7 @@ function RegisterForm() {
   }, []);
 
   return (
-    <div>
-      <h1>Register</h1>
+    <div className="card bg-light p-5 w-50 mx-auto">
       <form
         onSubmit={(e) =>
           handleSubmit(
@@ -89,9 +88,11 @@ function RegisterForm() {
             required
           />
         </div>
-        <div>
+
+        <div className="d-flex flex-column">
           <label htmlFor="birthDate">Birth Date:</label>
           <input
+            className="form-control"
             type="date"
             id="birthDate"
             name="birthDate"
@@ -101,9 +102,10 @@ function RegisterForm() {
           />
         </div>
 
-        <div>
+        <div className="d-flex flex-column">
           <label htmlFor="address">Address:</label>
           <input
+            className="form-control"
             type="text"
             id="address"
             name="address"
@@ -113,9 +115,10 @@ function RegisterForm() {
           />
         </div>
 
-        <div>
+        <div className="d-flex flex-column">
           <label htmlFor="phone">Phone:</label>
           <input
+            className="form-control"
             type="text"
             id="phone"
             name="phone"
@@ -125,9 +128,10 @@ function RegisterForm() {
           />
         </div>
 
-        <div>
+        <div className="d-flex flex-column">
           <label htmlFor="username">Email</label>
           <input
+            className="form-control"
             type="text"
             id="username"
             name="username"
@@ -137,26 +141,30 @@ function RegisterForm() {
           />
         </div>
 
-        <label htmlFor="department"></label>
-        <select
-          name="department"
-          id="department"
-          value={selectedDept}
-          onChange={(e) => setSelectedDept(e.target.value)}
-        >
-          <option value={0}>Select Department:</option>
-          {department
-            ? department.map((dept, id) => (
-                <option value={dept.id} key={id}>
-                  {dept.name}
-                </option>
-              ))
-            : ""}
-        </select>
+        <div className="d-flex flex-column">
+          <label htmlFor="department">Department: </label>
+          <select
+            className="custom-select"
+            name="department"
+            id="department"
+            value={selectedDept}
+            onChange={(e) => setSelectedDept(e.target.value)}
+          >
+            <option value={0}>Select Department:</option>
+            {department
+              ? department.map((dept, id) => (
+                  <option value={dept.id} key={id}>
+                    {dept.name}
+                  </option>
+                ))
+              : ""}
+          </select>
+        </div>
 
-        <div>
+        <div className="d-flex flex-column">
           <label htmlFor="password">Password:</label>
           <input
+            className="form-control"
             type="password"
             id="password"
             name="password"
@@ -166,7 +174,12 @@ function RegisterForm() {
           />
         </div>
 
-        <button type="submit">Submit</button>
+        <button
+          type="submit"
+          className="btn btn-success waves-effect waves-light align-self-start mt-3"
+        >
+          Submit
+        </button>
       </form>
     </div>
   );

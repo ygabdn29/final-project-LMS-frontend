@@ -8,8 +8,7 @@ import Registration from "./components/pages/registration";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    {/* <App /> */}
-    <Registration></Registration>
+    <App />
   </React.StrictMode>
 );
 
