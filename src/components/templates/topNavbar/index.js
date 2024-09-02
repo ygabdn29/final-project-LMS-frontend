@@ -1,7 +1,9 @@
+import { Outlet } from "react-router-dom";
+
 function TopNavbar({ children }) {
   return (
     <div className="fix-header fix-sidebar card-no-border">
-      <div className="preloader">
+      {/* <div className="preloader">
         <svg className="circular" viewBox="25 25 50 50">
           <circle
             className="path"
@@ -13,7 +15,7 @@ function TopNavbar({ children }) {
             strokeMiterlimit="10"
           />{" "}
         </svg>
-      </div>
+      </div> */}
       <div id="main-wrapper">
         <header className="topbar">
           <nav className="navbar top-navbar navbar-expand-md navbar-light">
