@@ -1,24 +1,32 @@
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import AddMaterial from './components/pages/Mentor/NewMaterial';
+import CourseListMentee from './components/pages/Mentee/ListCourseMentee'; // For mentees
+import CourseListMentor from './components/pages/Mentor/ListCourseMentor'; // For mentors
+import ListMaterialMentee from './components/pages/Mentee/ListMaterialMentee'; // For mentees
+import ListMaterialMentor from './components/pages/Mentor/ListMaterialMentor'; // For mentors
+import MaterialDetail from './components/pages/Mentee/AccessMaterial';
 import './App.css';
 
 function App() {
+  const courses = [
+    { id: 1, name: 'Front End Developer' },
+    { id: 2, name: 'Back End Developer' },
+  ];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        {/* Route Mentee */}
+        <Route path="/" element={<CourseListMentee courses={courses} />} />
+        <Route path="/course/:courseId/materials" element={<ListMaterialMentee />} />
+        <Route path="/course/:courseId/material/:materialId" element={<MaterialDetail />} />
+        
+        {/* Route Mentor*/}
+        <Route path="/mentor/courses" element={<CourseListMentor courses={courses} />} />
+        <Route path="/mentor/course/:courseId/materials" element={<ListMaterialMentor />} />
+        <Route path="/course/:courseId/new-material" element={<AddMaterial />} />
+      </Routes>
+    </Router>
   );
 }
 
