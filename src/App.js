@@ -6,6 +6,11 @@ import ListMaterialMentee from './components/pages/Mentee/ListMaterialMentee'; /
 import ListMaterialMentor from './components/pages/Mentor/ListMaterialMentor'; // For mentors
 import MaterialDetail from './components/pages/Mentee/AccessMaterial';
 import './App.css';
+import { useState } from "react";
+import EmailVerification from "./components/pages/emailVerification";
+import Login from "./components/pages/login";
+import Registration from "./components/pages/registration";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   const courses = [
@@ -14,8 +19,20 @@ function App() {
   ];
 
   return (
-    <Router>
-      <Routes>
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login></Login>}></Route>
+          <Route
+            path="/register"
+            element={<Registration></Registration>}
+          ></Route>
+          <Route
+            path="/verify/:guid"
+            element={<EmailVerification></EmailVerification>}
+          ></Route>
+        </Routes>
+        <Routes>
         {/* Route Mentee */}
         <Route path="/" element={<CourseListMentee courses={courses} />} />
         <Route path="/course/:courseId/materials" element={<ListMaterialMentee />} />
@@ -26,7 +43,11 @@ function App() {
         <Route path="/mentor/course/:courseId/materials" element={<ListMaterialMentor />} />
         <Route path="/course/:courseId/new-material" element={<AddMaterial />} />
       </Routes>
-    </Router>
+      </BrowserRouter>
+      {/* <Registration></Registration> */}
+      {/* <Login></Login> */}
+      {/* <EmailVerification></EmailVerification> */}
+    </div>
   );
 }
 
