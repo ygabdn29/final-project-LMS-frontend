@@ -3,11 +3,35 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import AccessAssignment from './components/Assignment/AccessAssignment';
+import AccessCourse from './components/Course/AccessCourse';
+import CreateCourse from './components/Course/CreateCourse';
+import UpdateCourse from './components/Course/UpdateCourse';
+import GetScore from './components/Assignment/Score';
+import GradeAssignment from './components/Assignment/Grading';
+import DeleteCourse from './components/Course/DeleteCourse';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    {/* <App /> */}
+
+    {/* <AccessAssignment />
+    <br/>
+    <GradeAssignment /> */}
+
+    {/* <AccessAssignment />
+    <br/>
+    <GetScore/> */}
+
+    {/* <AccessCourse/> */}
+
+    <CreateCourse/>
+
+    {/* <UpdateCourse/> */}
+
+    {/* <DeleteCourse/> */}
+    
   </React.StrictMode>
 );
 
