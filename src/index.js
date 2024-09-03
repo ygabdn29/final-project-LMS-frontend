@@ -10,28 +10,17 @@ import UpdateCourse from './components/Course/UpdateCourse';
 import GetScore from './components/Assignment/Score';
 import GradeAssignment from './components/Assignment/Grading';
 import DeleteCourse from './components/Course/DeleteCourse';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import Registration from "./components/pages/registration";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    {/* <App /> */}
-
-    {/* <AccessAssignment />
-    <br/>
-    <GradeAssignment /> */}
-
-    {/* <AccessAssignment />
-    <br/>
-    <GetScore/> */}
-
-    {/* <AccessCourse/> */}
-
-    <CreateCourse/>
-
-    {/* <UpdateCourse/> */}
-
-    {/* <DeleteCourse/> */}
-    
+    <CreateCourse/>   
   </React.StrictMode>
 );
 
