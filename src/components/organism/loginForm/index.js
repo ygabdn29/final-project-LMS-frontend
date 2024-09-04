@@ -56,7 +56,10 @@ function handleSubmit(e, username, password) {
       username: username,
       password: password,
     })
-    .then((response) => alert(response.data.message))
+    .then((response) => {
+      sessionStorage.setItem("user", JSON.stringify(response.data.data));
+      window.location.replace("http://localhost:3000/dashboard");
+    })
     .catch((error) => alert(error));
 }
 export default LoginForm;
