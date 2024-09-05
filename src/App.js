@@ -4,13 +4,13 @@ import CourseListMentor from "./components/pages/Mentor/ListCourseMentor"; // Fo
 import ListMaterialMentee from "./components/pages/Mentee/ListMaterialMentee"; // For mentees
 import ListMaterialMentor from "./components/pages/Mentor/ListMaterialMentor"; // For mentors
 import MaterialDetail from "./components/pages/Mentee/AccessMaterial";
-import "./App.css";
 import { useState } from "react";
 import EmailVerification from "./components/pages/emailVerification";
 import Login from "./components/pages/login";
 import Registration from "./components/pages/registration";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Dashboard from "./components/templates/dashboard";
+import EnrollCourse from "./components/pages/enrollCourse";
 
 function App() {
   const courses = [
@@ -23,6 +23,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
+          <Route
+            path="/courses"
+            element={<EnrollCourse></EnrollCourse>}
+          ></Route>
           <Route path="/login" element={<Login></Login>}></Route>
           <Route
             path="/register"
