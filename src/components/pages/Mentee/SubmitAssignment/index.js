@@ -30,9 +30,6 @@ const SubmitAssignment = () => {
 
   return (
     <div className="container mt-4">
-      <h2>Submit Assignment</h2>
-      {message && <p className="text-success">{message}</p>}
-      {error && <p className="text-danger">{error}</p>}
       <FormSubmission onSubmit={handleFormSubmit} />
     </div>
   );
