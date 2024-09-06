@@ -13,8 +13,11 @@ import Registration from "./components/pages/registration";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from './components/Layout';
 import SubmitAssignment from './components/pages/Mentee/SubmitAssignment';
-import Dashboard from "./components/templates/dashboard";
 import EnrollCourse from "./components/pages/enrollCourse";
+import EnrolledCourses from './components/pages/enrolledCourses';
+import AssignedCourse from './components/pages/assignedCourse';
+import ManageCourses from './components/pages/manageCourses';
+import GradeSubmission from './components/pages/gradeSubmission';
 
 function App() {
   return (
@@ -52,7 +55,7 @@ function App() {
         </Routes>
         <Routes>
           {/* Route Mentee */}
-          <Route path="/" element={<CourseListMentee courses={courses} />} />
+          {/* <Route path="/" element={<CourseListMentee courses={courses} />} /> */}
           <Route
             path="/course/:courseId/materials"
             element={<ListMaterialMentee />}
@@ -63,10 +66,10 @@ function App() {
           />
 
           {/* Route Mentor*/}
-          <Route
+          {/* <Route
             path="/mentor/courses"
             element={<CourseListMentor courses={courses} />}
-          />
+          /> */}
           <Route
             path="/mentor/course/:courseId/materials"
             element={<ListMaterialMentor />}
@@ -75,6 +78,16 @@ function App() {
             path="/course/:courseId/new-material"
             element={<AddMaterial />}
           />
+        </Routes>
+        <Routes>
+          {/* Dasboard Mentee */}
+          <Route path="/mentee/enrolled" element={<EnrolledCourses/>}/>
+          {/* Dasboard Mentor */}
+          <Route path="/mentor/assigned" element={<AssignedCourse/>}/>
+          {/* Mentor Grading Submission */}
+          <Route path="/mentor/grade" element={<GradeSubmission/>}/>
+          {/* Dasboard Admin */}
+          <Route path="/admin/manage/courses" element={<ManageCourses/>}/>
         </Routes>
       </BrowserRouter>
       {/* <Registration></Registration> */}

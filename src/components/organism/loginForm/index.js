@@ -57,8 +57,10 @@ function handleSubmit(e, username, password) {
       password: password,
     })
     .then((response) => {
-      sessionStorage.setItem("user", JSON.stringify(response.data.data));
-      window.location.replace("http://localhost:3000/dashboard");
+      const userDetails = response.data.data;
+      localStorage.setItem('userDetails', JSON.stringify(userDetails));
+      console.log(localStorage.getItem('userDetails'));
+      alert(response.data.message);
     })
     .catch((error) => alert(error));
 }

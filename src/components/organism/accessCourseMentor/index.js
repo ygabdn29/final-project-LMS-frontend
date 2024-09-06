@@ -3,11 +3,12 @@ import axios from 'axios';
 
 let AccessCourseMentor = () => {
   const [dataCourse, setDataCourse] = useState(null);
-  let sessionId = 1;
+  const userDetails = JSON.parse(localStorage.getItem('userDetails')); 
+  const userId = userDetails?.userID; 
 
   useEffect(() => {
     axios.get("http://localhost:8080/api/course/assigned",
-      { headers: { 'id': sessionId } }
+      { headers: { 'id': userId } }
     )
       .then(response => {
         setDataCourse(response.data.data);

@@ -3,12 +3,12 @@ import axios from 'axios';
 
 let AccessCourseMentee = () => {
   const [dataCourse, setDataCourse] = useState([]);
-
-  let sessionId = 3; //nanti pass dr function parameter/ props
+  const userDetails = JSON.parse(localStorage.getItem('userDetails')); 
+  const userId = userDetails?.userID; 
 
   useEffect(() => {
     axios.get("http://localhost:8080/api/course/enrolled",
-      { headers: { 'id': sessionId } }
+      { headers: { 'id': userId } }
     )
       .then(response => {
         setDataCourse(response.data.data);
@@ -26,11 +26,11 @@ let AccessCourseMentee = () => {
 
   return (
     <>
-      <div className="col-md-11 p-20">        
+      <div className="col-md-11 p-20">
         <h1 className="card-title">Enrolled Courses:</h1>
         <ul className="list-unstyled">
           {dataCourse.map(courses => (
-            <li className="media">
+            <li key={courses.course.id} className="media">
               <div className="media-body">
                 <h1 className="mt-0 mb-1">Course Title:</h1>
                 <h2>{courses.course.title}</h2>
