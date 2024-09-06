@@ -1,17 +1,45 @@
-import React from 'react';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const CourseList = ({ courses }) => {
+const CourseList = () => {
+  const [courses, setCourses] = useState([]);
+  const [error, setError] = useState('');
+
+  const fetchCourse = () => {
+    axios.get("http://localhost:8080/api/course")
+      .then(response => {
+        setCourses(response.data.data);
+        setError('');
+      })
+      .catch(error => {
+        setError("Error Fetching Courses");
+        setCourses([]);
+        console.error("Error fetching courses:", error);
+      });
+  };
+
+  useEffect(() => {
+    fetchCourse();
+  }, []);
+
   return (
     <div>
       <h2>Select a Course</h2>
-      <ul>
-        {courses.map(course => (
-          <li key={course.id}>
-            <Link to={`/course/${course.id}/materials`}>{course.name}</Link>
-          </li>
-        ))}
-      </ul>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {courses.length > 0 ? (
+        <ul>
+          {courses.map(course => (
+            <li key={course.id}>
+              <Link to={`/course/${course.id}/materials`}>
+                {course.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No courses available</p>
+      )}
     </div>
   );
 };

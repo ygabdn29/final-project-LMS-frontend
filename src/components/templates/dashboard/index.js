@@ -1,4 +1,11 @@
+import { useState } from "react";
+import AdminDashboard from "../../pages/adminDashboard/inedx";
+import MentorDashboard from "../../pages/mentorDashboard";
+import MenteeDashboard from "../../pages/menteeDashboard";
+
 function Dashboard({ children }) {
+  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user")));
+
   return (
     <div className="fix-header fix-sidebar card-no-border">
       <div className="preloader">
@@ -52,6 +59,22 @@ function Dashboard({ children }) {
         <div className="page-wrapper">
           <div className="container-fluid">
             <h1>Dashboard</h1>
+            {user.authenticatedUserRole === "Admin" ? (
+              <AdminDashboard></AdminDashboard>
+            ) : (
+              ""
+            )}
+            {user.authenticatedUserRole === "Mentor" ? (
+              <MentorDashboard></MentorDashboard>
+            ) : (
+              ""
+            )}
+            {user.authenticatedUserRole === "Mentee" ? (
+              <MenteeDashboard></MenteeDashboard>
+            ) : (
+              ""
+            )}
+            {console.log(user.authenticatedUserRole)}
             {children}
           </div>
         </div>

@@ -1,0 +1,13 @@
+.card-body-fixed {
+  display: flex;
+  flex-direction: column;
+  min-height: 100px;
+}
+
+.card-description {
+  flex-grow: 1;
+}
+
+.button-group {
+  margin-top: 10px;
+}
