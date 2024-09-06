@@ -1,23 +1,22 @@
-import AddMaterial from "./components/pages/Mentor/NewMaterial";
-import CourseListMentee from "./components/pages/Mentee/ListCourseMentee"; // For mentees
-import CourseListMentor from "./components/pages/Mentor/ListCourseMentor"; // For mentors
-import ListMaterialMentee from "./components/pages/Mentee/ListMaterialMentee"; // For mentees
-import ListMaterialMentor from "./components/pages/Mentor/ListMaterialMentor"; // For mentors
-import MaterialDetail from "./components/pages/Mentee/AccessMaterial";
-import { useState } from "react";
+import AddMaterial from './components/pages/Mentor/NewMaterial';
+import CourseListMentee from './components/pages/Mentee/ListCourseMentee';
+import CourseListMentor from './components/pages/Mentor/ListCourseMentor';
+import ListMaterialMentee from './components/pages/Mentee/ListMaterialMentee';
+import ListMaterialMentor from './components/pages/Mentor/ListMaterialMentor';
+import MaterialDetail from './components/pages/Mentee/AccessMaterial';
+import EditMaterial from './components/pages/Mentor/UpdateMaterial';
+import Material from './components/pages/Mentor/AccessMaterialMentor';
 import EmailVerification from "./components/pages/emailVerification";
 import Login from "./components/pages/login";
+import Dashboard from './components/templates/dashboard';
 import Registration from "./components/pages/registration";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Layout from './components/Layout';
+import SubmitAssignment from './components/pages/Mentee/SubmitAssignment';
 import Dashboard from "./components/templates/dashboard";
 import EnrollCourse from "./components/pages/enrollCourse";
 
 function App() {
-  const courses = [
-    { id: 1, name: "Front End Developer" },
-    { id: 2, name: "Back End Developer" },
-  ];
-
   return (
     <div className="App">
       <BrowserRouter>
@@ -36,6 +35,20 @@ function App() {
             path="/verify/:guid"
             element={<EmailVerification></EmailVerification>}
           ></Route>
+          <Route path="/course/:courseId/material/:materialId/assignment/:assignmentId/submit" element={<SubmitAssignment />} />
+
+          {/* Route Mentee */}
+          <Route path="/course" element={<Layout />}>
+            <Route index element={<CourseListMentee />} />
+            <Route path="/course/:courseId/materials" element={<ListMaterialMentee />} />
+            <Route path="/course/:courseId/material/:materialId" element={<MaterialDetail />} />
+          </Route>
+
+          {/* Route Mentor*/}
+          <Route path="/mentor" element={<Layout />}>
+            <Route index element={<CourseListMentor />} />
+            <Route path="/mentor/course/:courseId/materials" element={<ListMaterialMentor />} />
+          </Route>
         </Routes>
         <Routes>
           {/* Route Mentee */}

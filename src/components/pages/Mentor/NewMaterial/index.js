@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import FormMaterial from "../FormMaterial";
+import FormMaterial from "../../../organism/FormMaterial";
 import axios from "axios";
 
 const AddMaterial = () => {

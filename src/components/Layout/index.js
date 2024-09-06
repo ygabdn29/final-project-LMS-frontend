@@ -1,7 +1,9 @@
-function TopNavbar({ children }) {
+import { Outlet } from "react-router-dom";
+
+function Layout({ children }) {
   return (
     <div className="fix-header fix-sidebar card-no-border">
-      {/* <div className="preloader">
+      <div className="preloader">
         <svg className="circular" viewBox="25 25 50 50">
           <circle
             className="path"
@@ -13,13 +15,13 @@ function TopNavbar({ children }) {
             strokeMiterlimit="10"
           />{" "}
         </svg>
-      </div> */}
+      </div>
       <div id="main-wrapper">
         <header className="topbar">
           <nav className="navbar top-navbar navbar-expand-md navbar-light">
             <div className="navbar-header"></div>
             <div className="navbar-collapse">
-              {/* <ul className="navbar-nav mr-auto mt-md-0 ">
+              <ul className="navbar-nav mr-auto mt-md-0 ">
                 <li className="nav-item">
                   {" "}
                   <a
@@ -37,17 +39,27 @@ function TopNavbar({ children }) {
                     <i className="icon-arrow-left-circle"></i>
                   </a>
                 </li>
-              </ul> */}
+              </ul>
             </div>
           </nav>
         </header>
 
-        <div className="">
-          <div className="container-fluid">{children}</div>
+        <aside className="left-sidebar">
+          <div className="scroll-sidebar">
+            <nav className="sidebar-nav"></nav>
+          </div>
+          <div className="sidebar-footer"></div>
+        </aside>
+
+        <div className="page-wrapper">
+          <div className="container-fluid">
+            <Outlet />
+            {children}
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default TopNavbar;
+export default Layout;
