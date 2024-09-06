@@ -1,23 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
-import { Modal, Button, Form } from 'react-bootstrap';
+import { useParams, useNavigate, Link } from "react-router-dom";
 import './style.css';
 
 const ListMaterialMentor = () => {
   const { courseId } = useParams();
   const [materials, setMaterials] = useState([]);
-  const [modalEdit, setModalEdit] = useState(false);
-  const [modalCreate, setModalCreate] = useState(false);
-  const [editMaterial, setEditMaterial] = useState({
-    id: '',
-    title: '',
-    content: ''
-  });
-  const [newMaterial, setNewMaterial] = useState({
-    title: '',
-    content: ''
-  });
   const [course, setCourse] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -51,59 +39,6 @@ const ListMaterialMentor = () => {
     fetchMaterials();
   }, [courseId]);
 
-  const handleEditClick = (material) => {
-    setEditMaterial({
-      id: material.id,
-      title: material.title,
-      content: material.content
-    });
-    setModalEdit(true);
-  };
-
-  const handleEditMaterial = (e) => {
-    e.preventDefault();
-    axios.put(`http://localhost:8080/api/course/${courseId}/edit-material/${editMaterial.id}`, editMaterial)
-      .then(response => {
-        console.log("Update Material Successfully", response.data);
-        setModalEdit(false);
-        fetchMaterials();
-        navigate(`/mentor/course/${courseId}/materials`);
-      })
-      .catch(error => {
-        setError("Failed to update material");
-        console.error("Error updating material:", error);
-      });
-  };
-
-  const handleAddMaterial = (e) => {
-    e.preventDefault();
-    axios.post(`http://localhost:8080/api/course/${courseId}/new-material`, newMaterial)
-      .then(response => {
-        console.log("Material Added Successfully", response.data);
-        setModalCreate(false);
-        setNewMaterial({ title: '', content: '' });
-        fetchMaterials();
-      })
-      .catch(error => {
-        setError("Failed to add material");
-        console.error("Error adding material:", error);
-      });
-  };
-
-  const handleEditChange = (e) => {
-    setEditMaterial({
-      ...editMaterial,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleAddChange = (e) => {
-    setNewMaterial({
-      ...newMaterial,
-      [e.target.name]: e.target.value
-    });
-  };
-
   const handleDelete = (materialId) => {
     const deleteMaterial = window.confirm("Are you sure you want to delete this material?");
     if (deleteMaterial) {
@@ -125,11 +60,9 @@ const ListMaterialMentor = () => {
         <div>
           <div className="d-flex justify-content-between align-items-center mb-4">
             <h1><strong>{course}</strong></h1>
-            <button className="btn btn-success" onClick={() => {
-              setNewMaterial({ title: '', content: '' });
-              setModalCreate(true);
-            }}>
-              Add Material
+            <button
+              className="btn btn-success"
+              onClick={() => navigate(`/mentor/course/${courseId}/new-material`)}> Add Material
             </button>
           </div>
           <div className="row">
@@ -147,7 +80,10 @@ const ListMaterialMentor = () => {
                       <Link to={`/mentor/course/${courseId}/material/${material.id}`}>
                         <button className="btn btn-info mr-2">Add Assignment</button>
                       </Link>
-                      <button className="btn btn-secondary mr-2" onClick={() => handleEditClick(material)}>
+                      <button
+                        className="btn btn-secondary mr-2"
+                        onClick={() => navigate(`/mentor/course/${courseId}/edit-material/${material.id}`)}
+                      >
                         Edit
                       </button>
                       <button className="btn btn-danger mr-2" onClick={() => handleDelete(material.id)}>
@@ -163,70 +99,6 @@ const ListMaterialMentor = () => {
       ) : (
         <p>No materials found</p>
       )}
-
-      <Modal show={modalEdit} onHide={() => setModalEdit(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Material</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleEditMaterial}>
-            <Form.Group controlId="formEditTitle">
-              <Form.Label>Title</Form.Label>
-              <Form.Control
-                type="text"
-                name="title"
-                value={editMaterial.title}
-                onChange={handleEditChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="formEditContent">
-              <Form.Label>Content</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={7}
-                name="content"
-                value={editMaterial.content}
-                onChange={handleEditChange}
-              />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-              Save Changes
-            </Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
-
-      <Modal show={modalCreate} onHide={() => setModalCreate(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Add New Material</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleAddMaterial}>
-            <Form.Group controlId="formAddTitle">
-              <Form.Label>Title</Form.Label>
-              <Form.Control
-                type="text"
-                name="title"
-                value={newMaterial.title}
-                onChange={handleAddChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="formAddContent">
-              <Form.Label>Content</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={7}
-                name="content"
-                value={newMaterial.content}
-                onChange={handleAddChange}
-              />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-              Add Material
-            </Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
     </div>
   );
 };

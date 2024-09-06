@@ -64,6 +64,8 @@ function App() {
                 path="course/:courseId/materials"
                 element={<ListMaterialMentor />}
               />
+              <Route path="course/:courseId/new-material" element={<AddMaterial></AddMaterial>}></Route>
+              <Route path="course/:courseId/edit-material/:materialId" element={<EditMaterial />} />
               <Route path="grade" element={<GradeSubmission />} />
             </Route>
 
