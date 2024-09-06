@@ -1,26 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import AccessAssignment from './components/Assignment/AccessAssignment';
-import AccessCourse from './components/Course/AccessCourse';
-import CreateCourse from './components/Course/CreateCourse';
-import UpdateCourse from './components/Course/UpdateCourse';
-import GetScore from './components/Assignment/Score';
-import GradeAssignment from './components/Assignment/Grading';
-import DeleteCourse from './components/Course/DeleteCourse';
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import Registration from "./components/pages/registration";
+import ManageCourses from "./components/pages/manageCourses";
+import AccessCourse from "./components/organism/accessCourseMentee";
+import EnrolledCourses from "./components/pages/enrolledCourses";
+import AccessCourseMentor from "./components/organism/accessCourseMentor";
+import AssignedCourse from "./components/pages/assignedCourse";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <CreateCourse/>   
+    <EnrolledCourses/>
   </React.StrictMode>
 );
 
