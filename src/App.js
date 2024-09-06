@@ -13,12 +13,22 @@ import Registration from "./components/pages/registration";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from './components/Layout';
 import SubmitAssignment from './components/pages/Mentee/SubmitAssignment';
+import EnrollCourse from "./components/pages/enrollCourse";
+import EnrolledCourses from './components/pages/enrolledCourses';
+import AssignedCourse from './components/pages/assignedCourse';
+import ManageCourses from './components/pages/manageCourses';
+import GradeSubmission from './components/pages/gradeSubmission';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
+          <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
+          <Route
+            path="/courses"
+            element={<EnrollCourse></EnrollCourse>}
+          ></Route>
           <Route path="/login" element={<Login></Login>}></Route>
           <Route
             path="/register"
@@ -42,6 +52,42 @@ function App() {
             <Route index element={<CourseListMentor />} />
             <Route path="/mentor/course/:courseId/materials" element={<ListMaterialMentor />} />
           </Route>
+        </Routes>
+        <Routes>
+          {/* Route Mentee */}
+          {/* <Route path="/" element={<CourseListMentee courses={courses} />} /> */}
+          <Route
+            path="/course/:courseId/materials"
+            element={<ListMaterialMentee />}
+          />
+          <Route
+            path="/course/:courseId/material/:materialId"
+            element={<MaterialDetail />}
+          />
+
+          {/* Route Mentor*/}
+          {/* <Route
+            path="/mentor/courses"
+            element={<CourseListMentor courses={courses} />}
+          /> */}
+          <Route
+            path="/mentor/course/:courseId/materials"
+            element={<ListMaterialMentor />}
+          />
+          <Route
+            path="/course/:courseId/new-material"
+            element={<AddMaterial />}
+          />
+        </Routes>
+        <Routes>
+          {/* Dasboard Mentee */}
+          <Route path="/mentee/enrolled" element={<EnrolledCourses/>}/>
+          {/* Dasboard Mentor */}
+          <Route path="/mentor/assigned" element={<AssignedCourse/>}/>
+          {/* Mentor Grading Submission */}
+          <Route path="/mentor/grade" element={<GradeSubmission/>}/>
+          {/* Dasboard Admin */}
+          <Route path="/admin/manage/courses" element={<ManageCourses/>}/>
         </Routes>
       </BrowserRouter>
       {/* <Registration></Registration> */}

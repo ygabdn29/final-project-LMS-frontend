@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+import AccessMenteeSubmission from '../accessMenteeSubmission';
 
-let GradeAssignment = () => {
-
+function GradingSubmission(){
   const [score, setScore] = useState(0);
-  let submissionId = 1; //props.data
+  let submissionId = 3; //props.data
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,8 +29,9 @@ let GradeAssignment = () => {
     setScore(e.target.value);
   }
 
-  return (
+  return(
     <>
+      <AccessMenteeSubmission></AccessMenteeSubmission>
       <h1>Grade Assignment</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -46,7 +47,7 @@ let GradeAssignment = () => {
         <button type='submit'>Grade Assignment</button>
       </form>
     </>
-  );
+  )
 }
 
-export default GradeAssignment;
+export default GradingSubmission;

@@ -56,7 +56,12 @@ function handleSubmit(e, username, password) {
       username: username,
       password: password,
     })
-    .then((response) => alert(response.data.message))
+    .then((response) => {
+      const userDetails = response.data.data;
+      localStorage.setItem('userDetails', JSON.stringify(userDetails));
+      console.log(localStorage.getItem('userDetails'));
+      alert(response.data.message);
+    })
     .catch((error) => alert(error));
 }
 export default LoginForm;
