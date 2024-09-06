@@ -25,20 +25,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
-          <Route
-            path="/courses"
-            element={<EnrollCourse></EnrollCourse>}
-          ></Route>
+          <Route path="/courses" element={<EnrollCourse></EnrollCourse>}></Route>
           <Route path="/login" element={<Login></Login>}></Route>
-          <Route
-            path="/register"
-            element={<Registration></Registration>}
-          ></Route>
-          <Route
-            path="/verify/:guid"
-            element={<EmailVerification></EmailVerification>}
-          ></Route>
-          <Route path="/course/:courseId/material/:materialId/assignment/:assignmentId/submit" element={<SubmitAssignment />} />
+          <Route path="/register" element={<Registration></Registration>}></Route>
+          <Route path="/verify/:guid" element={<EmailVerification></EmailVerification>}></Route>
 
           {/* Route Mentee */}
           <Route path="/course" element={<Layout />}>
@@ -51,43 +41,19 @@ function App() {
           <Route path="/mentor" element={<Layout />}>
             <Route index element={<CourseListMentor />} />
             <Route path="/mentor/course/:courseId/materials" element={<ListMaterialMentor />} />
+            <Route path="/mentor/course/:courseId/new-material" element={<AddMaterial></AddMaterial>}></Route>
+            <Route path="/mentor/course/:courseId/edit-material/:materialId" element={<EditMaterial />} />
           </Route>
         </Routes>
         <Routes>
-          {/* Route Mentee */}
-          {/* <Route path="/" element={<CourseListMentee courses={courses} />} /> */}
-          <Route
-            path="/course/:courseId/materials"
-            element={<ListMaterialMentee />}
-          />
-          <Route
-            path="/course/:courseId/material/:materialId"
-            element={<MaterialDetail />}
-          />
-
-          {/* Route Mentor*/}
-          {/* <Route
-            path="/mentor/courses"
-            element={<CourseListMentor courses={courses} />}
-          /> */}
-          <Route
-            path="/mentor/course/:courseId/materials"
-            element={<ListMaterialMentor />}
-          />
-          <Route
-            path="/course/:courseId/new-material"
-            element={<AddMaterial />}
-          />
-        </Routes>
-        <Routes>
           {/* Dasboard Mentee */}
-          <Route path="/mentee/enrolled" element={<EnrolledCourses/>}/>
+          <Route path="/mentee/enrolled" element={<EnrolledCourses />} />
           {/* Dasboard Mentor */}
-          <Route path="/mentor/assigned" element={<AssignedCourse/>}/>
+          <Route path="/mentor/assigned" element={<AssignedCourse />} />
           {/* Mentor Grading Submission */}
-          <Route path="/mentor/grade" element={<GradeSubmission/>}/>
+          <Route path="/mentor/grade" element={<GradeSubmission />} />
           {/* Dasboard Admin */}
-          <Route path="/admin/manage/courses" element={<ManageCourses/>}/>
+          <Route path="/admin/manage/courses" element={<ManageCourses />} />
         </Routes>
       </BrowserRouter>
       {/* <Registration></Registration> */}

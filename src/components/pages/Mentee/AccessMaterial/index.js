@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import DOMPurify from 'dompurify';
 
 const MaterialDetail = () => {
   const { courseId, materialId } = useParams();
@@ -15,7 +16,6 @@ const MaterialDetail = () => {
         } else {
           setError(response.data.message);
         }
-        setError('');
       })
       .catch(error => {
         setError("Error fetching material");
@@ -39,7 +39,7 @@ const MaterialDetail = () => {
                   <h1 className="mb-0">Material - {material.title}</h1>
                 </div>
                 <div className="card-body text-start">
-                  <p>{material.content}</p>
+                  <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(material.content) }} />
                 </div>
               </div>
             </div>
