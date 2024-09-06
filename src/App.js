@@ -21,6 +21,7 @@ import GradeSubmission from "./components/pages/gradeSubmission";
 import MenteeDashboard from "./components/pages/Mentee/MenteeDashboard";
 import MentorDashboard from "./components/pages/Mentor/MentorDashboard";
 import AdminDashboard from "./components/pages/adminDashboard/inedx";
+import NewAssignment from "./components/pages/Mentor/NewAssignment";
 
 function App() {
   return (
@@ -71,6 +72,10 @@ function App() {
               <Route
                 path="course/:courseId/edit-material/:materialId"
                 element={<EditMaterial />}
+              />
+              <Route
+                path="course/:courseId/material/:materialId/new-assignment"
+                element={<NewAssignment />}
               />
               <Route path="grade" element={<GradeSubmission />} />
             </Route>
