@@ -29,16 +29,31 @@ const MaterialDetail = () => {
   }, [courseId, materialId]);
 
   return (
-    <div>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {material ? (
-        <div>
-          <h2>{material.title}</h2>
-          <p>{material.content}</p>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+    <div className="container-fluid mt-4">
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        {material ? (
+          <div className="row">
+            <div className="col-12">
+              <div className="card">
+                <div className="card-header bg-primary text-white">
+                  <h1 className="mb-0">Material - {material.title}</h1>
+                </div>
+                <div className="card-body text-start">
+                  <p>{material.content}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="row justify-content-center">
+            <div className="col-md-6 text-center">
+              <div className="spinner-border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

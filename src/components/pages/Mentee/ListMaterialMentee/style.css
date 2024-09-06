@@ -1,0 +1,6 @@
+.container-left {
+  margin-left: 0;
+  margin-right: auto;
+  max-width: 100%;
+  padding: 0 15px;
+}

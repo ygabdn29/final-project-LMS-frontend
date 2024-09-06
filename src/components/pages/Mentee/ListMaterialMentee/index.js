@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import './style.css';
 
 const ListMaterial = () => {
   const { courseId } = useParams();
   const [materials, setMaterials] = useState([]);
+  const [course, setCourse] = useState('');
   const [error, setError] = useState('');
 
   const fetchMaterials = () => {
@@ -20,28 +22,48 @@ const ListMaterial = () => {
       });
   }
 
+  const fetchCourse = () => {
+    axios.get(`http://localhost:8080/api/course/${courseId}`)
+      .then(response => {
+        setCourse(response.data.data.title);
+        setError('')
+      })
+      .catch(error => {
+        setError("Failed to access course: ");
+        setCourse('');
+      })
+  }
+
   useEffect(() => {
     fetchMaterials();
+    fetchCourse();
   }, [courseId]);
 
   return (
-    <div>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    <div className="container mt-4">
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h2 className="display-4">Materials for Course: <span className="text-info">{course}</span></h2>
+      </div>
       {materials.length > 0 ? (
-        <div>
-          <h2>Materials for Course ID {courseId}</h2>
-          <ul>
-            {materials.map(material => (
-              <li key={material.id}>
+        <ul className="list-group">
+          {materials.map(material => (
+            <li key={material.id} className="list-group-item">
+              <div className="d-flex flex-column">
+                <h5 className="mb-1">{material.title}</h5>
+                <p className="mb-1">
+                  {material.content.length > 150
+                    ? `${material.content.slice(0, 150)}...`
+                    : material.content}
+                </p>
                 <Link to={`/course/${courseId}/material/${material.id}`}>
-                  <h3>{material.title}</h3>
+                  <button className="btn btn-info">View Material</button>
                 </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+              </div>
+            </li>
+          ))}
+        </ul>
       ) : (
-        <p>No materials found</p>
+        <div className="alert alert-info">No materials found</div>
       )}
     </div>
   );
