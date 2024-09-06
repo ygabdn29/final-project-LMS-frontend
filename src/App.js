@@ -13,12 +13,19 @@ import Registration from "./components/pages/registration";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from './components/Layout';
 import SubmitAssignment from './components/pages/Mentee/SubmitAssignment';
+import Dashboard from "./components/templates/dashboard";
+import EnrollCourse from "./components/pages/enrollCourse";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
+          <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
+          <Route
+            path="/courses"
+            element={<EnrollCourse></EnrollCourse>}
+          ></Route>
           <Route path="/login" element={<Login></Login>}></Route>
           <Route
             path="/register"
@@ -42,6 +49,32 @@ function App() {
             <Route index element={<CourseListMentor />} />
             <Route path="/mentor/course/:courseId/materials" element={<ListMaterialMentor />} />
           </Route>
+        </Routes>
+        <Routes>
+          {/* Route Mentee */}
+          <Route path="/" element={<CourseListMentee courses={courses} />} />
+          <Route
+            path="/course/:courseId/materials"
+            element={<ListMaterialMentee />}
+          />
+          <Route
+            path="/course/:courseId/material/:materialId"
+            element={<MaterialDetail />}
+          />
+
+          {/* Route Mentor*/}
+          <Route
+            path="/mentor/courses"
+            element={<CourseListMentor courses={courses} />}
+          />
+          <Route
+            path="/mentor/course/:courseId/materials"
+            element={<ListMaterialMentor />}
+          />
+          <Route
+            path="/course/:courseId/new-material"
+            element={<AddMaterial />}
+          />
         </Routes>
       </BrowserRouter>
       {/* <Registration></Registration> */}
