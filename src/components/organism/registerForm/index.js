@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 
 function RegisterForm() {
   const [firstName, setFirstName] = useState("");
-  const [middleName, setMiddleName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [birthDate, setBirthDate] = useState("");
@@ -27,7 +26,6 @@ function RegisterForm() {
           handleSubmit(
             e,
             firstName,
-            middleName,
             lastName,
             email,
             birthDate,
@@ -50,23 +48,6 @@ function RegisterForm() {
             value={firstName}
             onChange={(e) => {
               setFirstName(e.target.value);
-            }}
-            required
-          />
-        </div>
-
-        <div className="d-flex flex-column">
-          <label htmlFor="middleName" className="mb-2 align-self-start">
-            Middle Name:
-          </label>
-          <input
-            type="text"
-            id="middleName"
-            name="middleName"
-            className="form-control"
-            value={middleName}
-            onChange={(e) => {
-              setMiddleName(e.target.value);
             }}
             required
           />
@@ -188,7 +169,6 @@ function RegisterForm() {
 function handleSubmit(
   e,
   firstName,
-  middleName,
   lastName,
   email,
   birthDate,
@@ -201,7 +181,6 @@ function handleSubmit(
   axios
     .post("http://localhost:8080/api/account/register", {
       firstName: firstName,
-      middleName: middleName,
       lastName: lastName,
       email: email,
       birthDate: birthDate,
@@ -210,7 +189,10 @@ function handleSubmit(
       department_id: selectedDept,
       password: password,
     })
-    .then((response) => alert(response.data.message))
+    .then((response) => {
+      alert(response.data.message);
+      window.location.replace("http://localhost:3000/login");
+    })
     .catch((error) => alert(error));
 }
 export default RegisterForm;

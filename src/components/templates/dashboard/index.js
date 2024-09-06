@@ -1,26 +1,11 @@
 import { useState } from "react";
-import AdminDashboard from "../../pages/adminDashboard/inedx";
-import MentorDashboard from "../../pages/mentorDashboard";
-import MenteeDashboard from "../../pages/menteeDashboard";
+import { Outlet } from "react-router-dom";
 
 function Dashboard({ children }) {
   const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user")));
 
   return (
     <div className="fix-header fix-sidebar card-no-border">
-      <div className="preloader">
-        <svg className="circular" viewBox="25 25 50 50">
-          <circle
-            className="path"
-            cx="50"
-            cy="50"
-            r="20"
-            fill="none"
-            strokeWidth="2"
-            strokeMiterlimit="10"
-          />{" "}
-        </svg>
-      </div>
       <div id="main-wrapper">
         <header className="topbar">
           <nav className="navbar top-navbar navbar-expand-md navbar-light">
@@ -58,24 +43,7 @@ function Dashboard({ children }) {
 
         <div className="page-wrapper">
           <div className="container-fluid">
-            <h1>Dashboard</h1>
-            {user.authenticatedUserRole === "Admin" ? (
-              <AdminDashboard></AdminDashboard>
-            ) : (
-              ""
-            )}
-            {user.authenticatedUserRole === "Mentor" ? (
-              <MentorDashboard></MentorDashboard>
-            ) : (
-              ""
-            )}
-            {user.authenticatedUserRole === "Mentee" ? (
-              <MenteeDashboard></MenteeDashboard>
-            ) : (
-              ""
-            )}
-            {console.log(user.authenticatedUserRole)}
-            {children}
+            <Outlet></Outlet>
           </div>
         </div>
       </div>

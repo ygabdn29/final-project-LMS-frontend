@@ -1,14 +1,12 @@
 import Dashboard from "../../templates/dashboard";
 import AccessCourseMentor from "../../organism/accessCourseMentor";
 
-function AssignedCourse(){
-  return(
+function AssignedCourse() {
+  return (
     <>
-      <Dashboard>
-        <AccessCourseMentor></AccessCourseMentor>
-      </Dashboard>
+      <AccessCourseMentor></AccessCourseMentor>
     </>
-  )
+  );
 }
 
 export default AssignedCourse;

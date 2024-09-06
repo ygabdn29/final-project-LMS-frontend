@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
 
-function AdminDashboard() {
+function MenteeDashboard() {
   return (
     <>
-      <h1>Admin Dashboard</h1>
+      <h1>Mentee Dashboard</h1>
       <Outlet></Outlet>
     </>
   );
 }
 
-export default AdminDashboard;
+export default MenteeDashboard;
