@@ -2,7 +2,9 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
 function Dashboard({ children }) {
-  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user")));
+  const [user, setUser] = useState(
+    JSON.parse(sessionStorage.getItem("userDetails"))
+  );
 
   return (
     <div className="fix-header fix-sidebar card-no-border">
@@ -34,6 +36,7 @@ function Dashboard({ children }) {
           </nav>
         </header>
 
+        {console.log(user)}
         <aside className="left-sidebar">
           <div className="scroll-sidebar">
             <nav className="sidebar-nav"></nav>

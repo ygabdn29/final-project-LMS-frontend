@@ -24,6 +24,7 @@ function NewAssignment() {
           )
         }
       >
+        <h1 className="text-center">Add New Assignment</h1>
         <div className="d-flex flex-column">
           <label htmlFor="name" className="mb-2 align-self-start">
             Assignment Title:
