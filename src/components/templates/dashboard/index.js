@@ -29,12 +29,16 @@ function Dashboard({ children }) {
                       <a className="">Enroll Course</a>
                     </li>
                     <li className="active">
-                      <a className="">Logout</a>
+                      <a className="" onClick={(e) => handleLogout(e)}>
+                        Logout
+                      </a>
                     </li>
                   </>
                 ) : user.userRole === "Mentor" ? (
                   <li className="active">
-                    <a className="">Logout</a>
+                    <a className="" onClick={(e) => handleLogout(e)}>
+                      Logout
+                    </a>
                   </li>
                 ) : (
                   ""
@@ -53,6 +57,12 @@ function Dashboard({ children }) {
       </div>
     </div>
   );
+}
+
+function handleLogout(e) {
+  e.preventDefault();
+  sessionStorage.removeItem("userDetails");
+  window.location.replace("http://localhost:3000/login");
 }
 
 export default Dashboard;
