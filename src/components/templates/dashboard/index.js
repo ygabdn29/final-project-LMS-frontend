@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 
 function Dashboard({ children }) {
@@ -13,25 +13,7 @@ function Dashboard({ children }) {
           <nav className="navbar top-navbar navbar-expand-md navbar-light">
             <div className="navbar-header"></div>
             <div className="navbar-collapse">
-              <ul className="navbar-nav mr-auto mt-md-0 ">
-                <li className="nav-item">
-                  {" "}
-                  <a
-                    className="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark"
-                    onClick={(e) => e.preventDefault()}
-                  >
-                    <i className="ti-menu"></i>
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a
-                    className="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark"
-                    onClick={(e) => e.preventDefault()}
-                  >
-                    <i className="icon-arrow-left-circle"></i>
-                  </a>
-                </li>
-              </ul>
+              <ul className="navbar-nav mr-auto mt-md-0 "></ul>
             </div>
           </nav>
         </header>
@@ -39,7 +21,26 @@ function Dashboard({ children }) {
         {console.log(user)}
         <aside className="left-sidebar">
           <div className="scroll-sidebar">
-            <nav className="sidebar-nav"></nav>
+            <nav className="sidebar-nav">
+              <ul className="in">
+                {user.userRole === "Mentee" ? (
+                  <>
+                    <li className="active">
+                      <a className="">Enroll Course</a>
+                    </li>
+                    <li className="active">
+                      <a className="">Logout</a>
+                    </li>
+                  </>
+                ) : user.userRole === "Mentor" ? (
+                  <li className="active">
+                    <a className="">Logout</a>
+                  </li>
+                ) : (
+                  ""
+                )}
+              </ul>
+            </nav>
           </div>
           <div className="sidebar-footer"></div>
         </aside>

@@ -23,8 +23,11 @@ import MentorDashboard from "./components/pages/Mentor/MentorDashboard";
 import AdminDashboard from "./components/pages/adminDashboard/inedx";
 import NewAssignment from "./components/pages/Mentor/NewAssignment";
 import ListAssignment from "./components/pages/Mentee/ListAssignment";
+import ProtectedRoute from "./components/pages/ProtectedRoute";
 
 function App() {
+  const userDetails = JSON.parse(sessionStorage.getItem("userDetails"));
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -41,54 +44,121 @@ function App() {
 
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="mentee" element={<MenteeDashboard />}>
-              <Route index element={<EnrolledCourses />} />
+              <Route
+                index
+                element={
+                  <ProtectedRoute>
+                    <EnrolledCourses />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="course">
-                <Route path="list" element={<EnrollCourse />}></Route>
+                <Route
+                  path="list"
+                  element={
+                    <ProtectedRoute>
+                      <EnrollCourse />
+                    </ProtectedRoute>
+                  }
+                ></Route>
                 <Route
                   path=":courseId/materials"
-                  element={<ListMaterialMentee />}
+                  element={
+                    <ProtectedRoute>
+                      <ListMaterialMentee />
+                    </ProtectedRoute>
+                  }
                 />
                 <Route
                   path=":courseId/material/:materialId"
-                  element={<MaterialDetail />}
+                  element={
+                    <ProtectedRoute>
+                      <MaterialDetail />
+                    </ProtectedRoute>
+                  }
                 />
                 <Route
                   path=":courseId/material/:materialId/assignments"
-                  element={<ListAssignment />}
+                  element={
+                    <ProtectedRoute>
+                      <ListAssignment />
+                    </ProtectedRoute>
+                  }
                 />
                 <Route
                   path=":courseId/material/:materialId/assignment/:assignmentId/submit"
-                  element={<SubmitAssignment />}
+                  element={
+                    <ProtectedRoute>
+                      <SubmitAssignment />
+                    </ProtectedRoute>
+                  }
                 />
               </Route>
             </Route>
 
             <Route path="mentor" element={<MentorDashboard />}>
               {/* <Route  element={<CourseListMentor />} /> */}
-              <Route index element={<AssignedCourse />} />
+              <Route
+                index
+                element={
+                  <ProtectedRoute>
+                    <AssignedCourse />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="course">
                 <Route
                   path=":courseId/materials"
-                  element={<ListMaterialMentor />}
+                  element={
+                    <ProtectedRoute>
+                      <ListMaterialMentor />
+                    </ProtectedRoute>
+                  }
                 />
                 <Route
                   path=":courseId/new-material"
-                  element={<AddMaterial></AddMaterial>}
+                  element={
+                    <ProtectedRoute>
+                      <AddMaterial />
+                    </ProtectedRoute>
+                  }
                 ></Route>
                 <Route
                   path=":courseId/edit-material/:materialId"
-                  element={<EditMaterial />}
+                  element={
+                    <ProtectedRoute>
+                      <EditMaterial />
+                    </ProtectedRoute>
+                  }
                 />
                 <Route
                   path=":courseId/material/:materialId/new-assignment"
-                  element={<NewAssignment />}
+                  element={
+                    <ProtectedRoute>
+                      <NewAssignment />
+                    </ProtectedRoute>
+                  }
                 />
               </Route>
-              <Route path="grade" element={<GradeSubmission />} />
+              <Route
+                path="grade"
+                element={
+                  <ProtectedRoute>
+                    <GradeSubmission />
+                  </ProtectedRoute>
+                }
+              />
             </Route>
 
             <Route path="admin" element={<AdminDashboard></AdminDashboard>}>
-              <Route path="manage/courses" element={<ManageCourses />} />
+              <Route
+                path="manage/courses"
+                element={
+                  <ProtectedRoute>
+                    <ManageCourses />
+                  </ProtectedRoute>
+                }
+              />
             </Route>
           </Route>
         </Routes>
