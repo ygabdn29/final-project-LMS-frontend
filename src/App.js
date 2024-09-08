@@ -22,6 +22,7 @@ import MenteeDashboard from "./components/pages/Mentee/MenteeDashboard";
 import MentorDashboard from "./components/pages/Mentor/MentorDashboard";
 import AdminDashboard from "./components/pages/adminDashboard/inedx";
 import NewAssignment from "./components/pages/Mentor/NewAssignment";
+import ListAssignment from "./components/pages/Mentee/ListAssignment";
 
 function App() {
   return (
@@ -52,6 +53,10 @@ function App() {
                   element={<MaterialDetail />}
                 />
                 <Route
+                  path=":courseId/material/:materialId/assignments"
+                  element={<ListAssignment />}
+                />
+                <Route
                   path=":courseId/material/:materialId/assignment/:assignmentId/submit"
                   element={<SubmitAssignment />}
                 />
@@ -61,22 +66,24 @@ function App() {
             <Route path="mentor" element={<MentorDashboard />}>
               {/* <Route  element={<CourseListMentor />} /> */}
               <Route index element={<AssignedCourse />} />
-              <Route
-                path="course/:courseId/materials"
-                element={<ListMaterialMentor />}
-              />
-              <Route
-                path="course/:courseId/new-material"
-                element={<AddMaterial></AddMaterial>}
-              ></Route>
-              <Route
-                path="course/:courseId/edit-material/:materialId"
-                element={<EditMaterial />}
-              />
-              <Route
-                path="course/:courseId/material/:materialId/new-assignment"
-                element={<NewAssignment />}
-              />
+              <Route path="course">
+                <Route
+                  path=":courseId/materials"
+                  element={<ListMaterialMentor />}
+                />
+                <Route
+                  path=":courseId/new-material"
+                  element={<AddMaterial></AddMaterial>}
+                ></Route>
+                <Route
+                  path=":courseId/edit-material/:materialId"
+                  element={<EditMaterial />}
+                />
+                <Route
+                  path=":courseId/material/:materialId/new-assignment"
+                  element={<NewAssignment />}
+                />
+              </Route>
               <Route path="grade" element={<GradeSubmission />} />
             </Route>
 
