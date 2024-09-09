@@ -1,36 +1,38 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import './style.css';
+import "./style.css";
 
 const ListMaterialMentor = () => {
   const { courseId } = useParams();
   const [materials, setMaterials] = useState([]);
-  const [course, setCourse] = useState('');
-  const [error, setError] = useState('');
+  const [course, setCourse] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const fetchMaterials = () => {
-    axios.get(`http://localhost:8080/api/course/${courseId}/materials`)
-      .then(response => {
+    axios
+      .get(`http://localhost:8080/api/course/${courseId}/materials`)
+      .then((response) => {
         setMaterials(response.data.data);
-        setError('');
+        setError("");
       })
-      .catch(error => {
+      .catch((error) => {
         setError("Error fetching materials");
         setMaterials([]);
       });
   };
 
   const fetchCourse = () => {
-    axios.get(`http://localhost:8080/api/course/${courseId}`)
-      .then(response => {
+    axios
+      .get(`http://localhost:8080/api/course/${courseId}`)
+      .then((response) => {
         setCourse(response.data.data.title);
-        setError('');
+        setError("");
       })
-      .catch(error => {
+      .catch((error) => {
         setError("Failed to access course");
-        setCourse('');
+        setCourse("");
       });
   };
 
@@ -40,14 +42,21 @@ const ListMaterialMentor = () => {
   }, [courseId]);
 
   const handleDelete = (materialId) => {
-    const deleteMaterial = window.confirm("Are you sure you want to delete this material?");
+    const deleteMaterial = window.confirm(
+      "Are you sure you want to delete this material?"
+    );
     if (deleteMaterial) {
-      axios.delete(`http://localhost:8080/api/course/${courseId}/material/${materialId}`)
-        .then(response => {
-          setMaterials(materials.filter(material => material.id !== materialId));
-          setError('');
+      axios
+        .delete(
+          `http://localhost:8080/api/course/${courseId}/material/${materialId}`
+        )
+        .then((response) => {
+          setMaterials(
+            materials.filter((material) => material.id !== materialId)
+          );
+          setError("");
         })
-        .catch(error => {
+        .catch((error) => {
           setError("Failed to delete material");
           console.error("Error deleting material:", error);
         });
@@ -59,14 +68,21 @@ const ListMaterialMentor = () => {
       {materials.length > 0 ? (
         <div>
           <div className="d-flex justify-content-between align-items-center mb-4">
-            <h1><strong>{course}</strong></h1>
+            <h1>
+              <strong>{course}</strong>
+            </h1>
             <button
               className="btn btn-success"
-              onClick={() => navigate(`/mentor/course/${courseId}/new-material`)}> Add Material
+              onClick={() =>
+                navigate(`/mentor/course/${courseId}/new-material`)
+              }
+            >
+              {" "}
+              Add Material
             </button>
           </div>
           <div className="row">
-            {materials.map(material => (
+            {materials.map((material) => (
               <div key={material.id} className="col-md-4 mb-4">
                 <div className="card h-100">
                   <div className="card-body card-body-fixed">
@@ -77,16 +93,27 @@ const ListMaterialMentor = () => {
                         : material.content}
                     </p>
                     <div className="button-group">
-                      <Link to={`/mentor/course/${courseId}/material/${material.id}`}>
-                        <button className="btn btn-info mr-2">Add Assignment</button>
+                      <Link
+                        to={`/dashboard/mentor/course/${courseId}/material/${material.id}/new-assignment`}
+                      >
+                        <button className="btn btn-info mr-2">
+                          Add Assignment
+                        </button>
                       </Link>
                       <button
                         className="btn btn-secondary mr-2"
-                        onClick={() => navigate(`/mentor/course/${courseId}/edit-material/${material.id}`)}
+                        onClick={() =>
+                          navigate(
+                            `/mentor/course/${courseId}/edit-material/${material.id}`
+                          )
+                        }
                       >
                         Edit
                       </button>
-                      <button className="btn btn-danger mr-2" onClick={() => handleDelete(material.id)}>
+                      <button
+                        className="btn btn-danger mr-2"
+                        onClick={() => handleDelete(material.id)}
+                      >
                         Delete
                       </button>
                     </div>

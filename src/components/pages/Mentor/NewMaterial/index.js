@@ -1,38 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate} from 'react-router-dom';
-import FormMaterialQuill from '../../../organism/FormMaterialQuill'; // Pastikan path-nya sesuai dengan file Anda
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import FormMaterialQuill from "../../../organism/FormMaterialQuill"; // Pastikan path-nya sesuai dengan file Anda
+import axios from "axios";
 
 const AddMaterial = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
-  const [message, setMessage] = useState('');
-  const [course, setCourse] = useState('');
-  const [error, setError] = useState('');
+  const [message, setMessage] = useState("");
+  const [course, setCourse] = useState("");
+  const [error, setError] = useState("");
 
   const handleFormMaterial = (material) => {
-    axios.post(`http://localhost:8080/api/course/${courseId}/new-material`, material)
+    axios
+      .post(
+        `http://localhost:8080/api/course/${courseId}/new-material`,
+        material
+      )
       .then((response) => {
         setMessage(response.data.message);
-        setError('');
+        setError("");
         navigate(`/mentor/course/${courseId}/materials`);
       })
       .catch((error) => {
         setError("Failed to add material");
-        setMessage('');
+        setMessage("");
         console.error("Failed to add material", error);
       });
   };
 
   const fetchCourse = () => {
-    axios.get(`http://localhost:8080/api/course/${courseId}`)
-      .then(response => {
+    axios
+      .get(`http://localhost:8080/api/course/${courseId}`)
+      .then((response) => {
         setCourse(response.data.data.title);
-        setError('');
+        setError("");
       })
-      .catch(error => {
+      .catch((error) => {
         setError("Failed to access course");
-        setCourse('');
+        setCourse("");
       });
   };
 
@@ -42,9 +47,9 @@ const AddMaterial = () => {
 
   return (
     <div>
-      <h2>Add New Material to Course: {course}</h2>
+      <h2>Add New Material to {course}</h2>
       {message && <p>{message}</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
       <FormMaterialQuill onSubmit={handleFormMaterial} />
     </div>
   );
