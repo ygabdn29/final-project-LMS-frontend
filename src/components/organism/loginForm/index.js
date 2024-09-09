@@ -58,8 +58,8 @@ function handleSubmit(e, username, password) {
     })
     .then((response) => {
       const userDetails = response.data.data;
-      localStorage.setItem('userDetails', JSON.stringify(userDetails));
-      console.log(localStorage.getItem('userDetails'));
+      sessionStorage.setItem("userDetails", JSON.stringify(userDetails));
+      console.log(sessionStorage.getItem("userDetails"));
       alert(response.data.message);
     })
     .catch((error) => alert(error));

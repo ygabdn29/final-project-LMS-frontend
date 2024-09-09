@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Form from 'react-bootstrap/Form';
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
 
 let ListCoursesAdmin = () => {
   const [dataCourses, setDataCourses] = useState([]);
@@ -10,15 +10,15 @@ let ListCoursesAdmin = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [updatedCourse, setUpdatedCourse] = useState({
-    id: '',
-    title: '',
-    description: '',
-    mentorId: ''
+    id: "",
+    title: "",
+    description: "",
+    mentorId: "",
   });
   const [newCourse, setNewCourse] = useState({
-    title: '',
-    description: '',
-    mentorId: ''
+    title: "",
+    description: "",
+    mentorId: "",
   });
 
   useEffect(() => {
@@ -26,21 +26,23 @@ let ListCoursesAdmin = () => {
   }, []);
 
   const fetchCourses = () => {
-    axios.get("http://localhost:8080/api/course")
-      .then(response => {
+    axios
+      .get("http://localhost:8080/api/course")
+      .then((response) => {
         setDataCourses(response.data.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log("Error getting list of courses: ", error);
       });
   };
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/account/mentors")
-      .then(response => {
+    axios
+      .get("http://localhost:8080/api/account/mentors")
+      .then((response) => {
         setDataMentors(response.data.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error getting list mentors: ", error);
       });
   }, []);
@@ -48,13 +50,14 @@ let ListCoursesAdmin = () => {
   const handleCreateCourse = (e) => {
     e.preventDefault();
 
-    axios.post("http://localhost:8080/api/course/create", newCourse)
-      .then(response => {
+    axios
+      .post("http://localhost:8080/api/course/create", newCourse)
+      .then((response) => {
         console.log("Course created successfully: ", response.data);
         setShowCreateModal(false);
         fetchCourses();
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error creating course: ", error);
       });
   };
@@ -62,7 +65,7 @@ let ListCoursesAdmin = () => {
   const handleNewCourseChange = (e) => {
     setNewCourse({
       ...newCourse,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -71,7 +74,7 @@ let ListCoursesAdmin = () => {
       id: course.id,
       title: course.title,
       description: course.description,
-      mentorId: course.mentor.id
+      mentorId: course.mentor.id,
     });
     setShowEditModal(true);
   };
@@ -79,13 +82,14 @@ let ListCoursesAdmin = () => {
   const handleEditCourse = (e) => {
     e.preventDefault();
 
-    axios.post("http://localhost:8080/api/course/update", updatedCourse)
-      .then(response => {
+    axios
+      .post("http://localhost:8080/api/course/update", updatedCourse)
+      .then((response) => {
         console.log("Course updated successfully: ", response.data);
         fetchCourses();
         setShowEditModal(false);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error updating course: ", error);
       });
   };
@@ -93,21 +97,24 @@ let ListCoursesAdmin = () => {
   const handleEditCourseChange = (e) => {
     setUpdatedCourse({
       ...updatedCourse,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleDeleteClick = (course) => {
-    const confirmDelete = window.confirm(`Are you sure you want to delete this course (${course.title})?`);
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete this course (${course.title})?`
+    );
     if (confirmDelete) {
-      axios.delete("http://localhost:8080/api/course/delete", {
-        headers: { 'id': course.id }
-      })
-        .then(response => {
+      axios
+        .delete("http://localhost:8080/api/course/delete", {
+          headers: { id: course.id },
+        })
+        .then((response) => {
           console.log("Course deleted successfully: ", response.data);
           fetchCourses();
         })
-        .catch(error => {
+        .catch((error) => {
           console.error("Error deleting course: ", error);
         });
     }
@@ -125,12 +132,13 @@ let ListCoursesAdmin = () => {
         </header>
         <main>
           <Button
+            variant="success"
             className="text-decoration-none rounded text-light bg-success px-4 py-1 mb-3"
             onClick={() => setShowCreateModal(true)}
           >
             Create Course
           </Button>
-          <table className="table table-striped table-bordered border-dark mt-4" id='tableCourse'>
+          <table className="table color-table dark-table" id="tableCourse">
             <thead className="table-dark">
               <tr>
                 <th>ID</th>
@@ -141,21 +149,23 @@ let ListCoursesAdmin = () => {
               </tr>
             </thead>
             <tbody>
-              {dataCourses.map(course => (
+              {dataCourses.map((course) => (
                 <tr key={course.id}>
                   <td>{course.id}</td>
                   <td>{course.title}</td>
                   <td>{course.description}</td>
                   <td>{course.mentor.username}</td>
-                  <td className="text-center">
+                  <td className="text-center ">
                     <Button
-                      className="text-decoration-none rounded text-light bg-primary px-4 py-1"
+                      className="text-decoration-none rounded text-light bg-warning px-4 py-1 mr-4"
                       onClick={() => handleEditClick(course)}
+                      variant="warning"
                     >
                       Edit
                     </Button>
                     <Button
-                      className="text-decoration-none rounded text-light bg-primary px-4 py-1"
+                      variant="danger"
+                      className="text-decoration-none rounded text-light bg-danger px-4 py-1"
                       onClick={() => handleDeleteClick(course)}
                     >
                       Delete
@@ -176,7 +186,12 @@ let ListCoursesAdmin = () => {
           <Form onSubmit={handleEditCourse}>
             <Form.Group controlId="formEditCourseId">
               <Form.Label>Course ID</Form.Label>
-              <Form.Control type="text" name="id" value={updatedCourse.id} readOnly />
+              <Form.Control
+                type="text"
+                name="id"
+                value={updatedCourse.id}
+                readOnly
+              />
             </Form.Group>
             <Form.Group controlId="formEditTitle">
               <Form.Label>Title</Form.Label>
@@ -204,15 +219,17 @@ let ListCoursesAdmin = () => {
                 value={updatedCourse.mentorId}
                 onChange={handleEditCourseChange}
               >
-                <option value="" disabled>Select Mentor</option>
-                {dataMentors.map(mentor => (
+                <option value="" disabled>
+                  Select Mentor
+                </option>
+                {dataMentors.map((mentor) => (
                   <option key={mentor.id} value={mentor.id}>
                     {mentor.username}
                   </option>
                 ))}
               </Form.Control>
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="success" type="submit" className="mt-3">
               Save Changes
             </Button>
           </Form>
@@ -251,8 +268,10 @@ let ListCoursesAdmin = () => {
                 value={newCourse.mentorId}
                 onChange={handleNewCourseChange}
               >
-                <option value="" disabled>Select Mentor</option>
-                {dataMentors.map(mentor => (
+                <option value="" disabled>
+                  Select Mentor
+                </option>
+                {dataMentors.map((mentor) => (
                   <option key={mentor.id} value={mentor.id}>
                     {mentor.username}
                   </option>
@@ -266,7 +285,7 @@ let ListCoursesAdmin = () => {
         </Modal.Body>
       </Modal>
     </>
-  )
-}
+  );
+};
 
 export default ListCoursesAdmin;

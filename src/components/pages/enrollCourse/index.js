@@ -12,24 +12,32 @@ function EnrollCourse() {
 
   return (
     <div>
-      <h1>EnrollCourse</h1>
-      {courses?.map((course, id) => {
-        return (
-          <div key={id}>
-            <span>{course.title}</span>
-            <span> {course.description}</span>
-            <span id="courseId"> {course.id}</span>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleEnroll(course.id);
-              }}
-            >
-              <button>Enroll</button>
-            </form>
-          </div>
-        );
-      })}
+      <h1 className="display-5 text-center mb-3">Enroll Course</h1>
+      <ul className="list-unstyled">
+        {courses?.map((course, id) => {
+          return (
+            <li key={id} className="card card-outline-info">
+              <div className="card-header">
+                <h2 className="font-weight-bold">{course.title}</h2>
+              </div>
+              <div className="card-body">
+                <h4 className=""> {course.description}</h4>
+
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleEnroll(course.id);
+                  }}
+                >
+                  <button type="submit" className="btn btn-success">
+                    Enroll
+                  </button>
+                </form>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
     </div>
 
     // <Dashboard>

@@ -1,14 +1,12 @@
 import Dashboard from "../../templates/dashboard";
 import AccessCourseMentee from "../../organism/accessCourseMentee";
 
-function EnrolledCourses(){
-  return(
+function EnrolledCourses() {
+  return (
     <>
-      <Dashboard>
-        <AccessCourseMentee></AccessCourseMentee>
-      </Dashboard>
+      <AccessCourseMentee></AccessCourseMentee>
     </>
-  )
+  );
 }
 
 export default EnrolledCourses;

@@ -2,13 +2,11 @@ import Dashboard from "../../templates/dashboard";
 import ListCoursesAdmin from "../../organism/listCoursesAdmin";
 
 function ManageCourses() {
-  return(
+  return (
     <>
-      <Dashboard>
-        <ListCoursesAdmin></ListCoursesAdmin>
-      </Dashboard>
+      <ListCoursesAdmin></ListCoursesAdmin>
     </>
-  )
+  );
 }
 
 export default ManageCourses;
