@@ -6,6 +6,7 @@ function RegisterForm() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [birthDate, setBirthDate] = useState("");
+  const [gender, setGender] = useState();
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [department, setDepartment] = useState([]);
@@ -29,6 +30,7 @@ function RegisterForm() {
             lastName,
             email,
             birthDate,
+            gender,
             address,
             phone,
             selectedDept,
@@ -81,6 +83,24 @@ function RegisterForm() {
             onChange={(e) => setBirthDate(e.target.value)}
             required
           />
+        </div>
+
+        <div className="d-flex flex-column">
+          <label htmlFor="gender">Gender: </label>
+          <select
+            className="custom-select"
+            name="gender"
+            id="gender"
+            value={gender}
+            onChange={(e) => {
+              if (e.target.value === "Male") setGender("Male");
+              else setGender("Female");
+            }}
+          >
+            <option>Select your gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
         </div>
 
         <div className="d-flex flex-column">
@@ -172,18 +192,25 @@ function handleSubmit(
   lastName,
   email,
   birthDate,
+  gender,
   address,
   phone,
   selectedDept,
   password
 ) {
   e.preventDefault();
+  let selectedGender;
+
+  if (gender === "Male") selectedGender = true;
+  else selectedGender = false;
+
   axios
     .post("http://localhost:8080/api/account/register", {
       firstName: firstName,
       lastName: lastName,
       email: email,
       birthDate: birthDate,
+      gender: selectedGender,
       address: address,
       phone: phone,
       department_id: selectedDept,

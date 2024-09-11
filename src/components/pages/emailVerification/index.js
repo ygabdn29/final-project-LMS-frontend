@@ -8,9 +8,14 @@ function EmailVerification() {
     <TopNavbar>
       {console.log(guid)}
       <div>
-        <h1 className="text-center">Click verify your email!</h1>
-        <form onSubmit={(e) => handleVerify(e, guid)}>
-          <button type="submit">verify</button>
+        <h1 className="text-center display-5 my-4">Click verify your email!</h1>
+        <form
+          onSubmit={(e) => handleVerify(e, guid)}
+          className="d-flex justify-content-center"
+        >
+          <button type="submit" className="btn btn-success btn-lg">
+            <span className="">Verify</span>
+          </button>
         </form>
       </div>
     </TopNavbar>

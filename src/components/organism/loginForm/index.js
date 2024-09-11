@@ -59,8 +59,12 @@ function handleSubmit(e, username, password) {
     .then((response) => {
       const userDetails = response.data.data;
       sessionStorage.setItem("userDetails", JSON.stringify(userDetails));
-      console.log(sessionStorage.getItem("userDetails"));
       alert(response.data.message);
+      let userRole = JSON.parse(sessionStorage.getItem("userDetails"));
+      if (userRole.userRole === "Mentee")
+        window.location.replace("http://localhost:3000/dashboard/mentee");
+      if (userRole.userRole === "Mentor")
+        window.location.replace("http://localhost:3000/dashboard/mentor");
     })
     .catch((error) => alert(error));
 }
