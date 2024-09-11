@@ -32,8 +32,8 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route index element={<Dashboard></Dashboard>}></Route>
           {/* Login Route */}
+          <Route index element={<Registration />}></Route>
           <Route path="/login" element={<Login />}></Route>
 
           {/* Register Route */}

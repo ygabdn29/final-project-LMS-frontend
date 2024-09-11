@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 function Dashboard({ children }) {
   const [user, setUser] = useState(
@@ -26,7 +26,7 @@ function Dashboard({ children }) {
                 {user.userRole === "Mentee" ? (
                   <>
                     <li className="active">
-                      <a className="">Enroll Course</a>
+                      <Link to="mentee/course/list">Enroll Course</Link>
                     </li>
                     <li className="active">
                       <a className="" onClick={(e) => handleLogout(e)}>
