@@ -67,21 +67,56 @@ const ListMaterialMentor = () => {
     <div className="container mt-4">
       {materials.length > 0 ? (
         <div>
-          <div className="d-flex justify-content-between align-items-center mb-4">
+          <div className="d-flex justify-content-center align-items-center mb-4">
             <h1>
-              <strong>{course}</strong>
+              <strong>List Materials of {course}</strong>
             </h1>
-            <button
-              className="btn btn-success"
-              onClick={() =>
-                navigate(`/mentor/course/${courseId}/new-material`)
-              }
-            >
-              {" "}
-              Add Material
-            </button>
           </div>
-          <div className="row">
+
+          <div>
+            <div className="table-responsive">
+              <table className="table table-bordered color-bordered-table info-bordered-table text-dark">
+                <thead>
+                  <tr>
+                    <th style={{ width: "70%" }}>Title</th>
+                    <th className="text-center" style={{ width: "30%" }}>
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {materials.map((material, id) => {
+                    return (
+                      <tr key={id}>
+                        <td>{material.title}</td>
+                        <td className="d-flex justify-content-center" styl>
+                          <Link
+                            to={`/dashboard/mentor/course/${courseId}/edit-material/${material.id}`}
+                            className="btn btn-warning mr-3"
+                          >
+                            <span className="mr-1">
+                              <i className="mdi mdi-pencil"></i>
+                            </span>
+                            Edit
+                          </Link>
+                          <Link
+                            to={`/dashboard/mentor/course/1/material/${material.id}/assignments`}
+                            className="btn btn-info"
+                          >
+                            <span className="mr-1">
+                              <i className="mdi mdi-settings"></i>
+                            </span>
+                            Manage
+                          </Link>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          {/* <div className="row">
             {materials.map((material) => (
               <div key={material.id} className="col-md-4 mb-4">
                 <div className="card h-100">
@@ -121,7 +156,7 @@ const ListMaterialMentor = () => {
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       ) : (
         <p>No materials found</p>

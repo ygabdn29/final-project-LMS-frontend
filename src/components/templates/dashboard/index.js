@@ -35,11 +35,18 @@ function Dashboard({ children }) {
                     </li>
                   </>
                 ) : user.userRole === "Mentor" ? (
-                  <li className="active">
-                    <a className="" onClick={(e) => handleLogout(e)}>
-                      Logout
-                    </a>
-                  </li>
+                  <>
+                    <li className="">
+                      <Link to={`/dashboard/mentor`} className="">
+                        Course
+                      </Link>
+                    </li>
+                    <li className="">
+                      <a className="" onClick={(e) => handleLogout(e)}>
+                        Logout
+                      </a>
+                    </li>
+                  </>
                 ) : (
                   ""
                 )}

@@ -27,8 +27,36 @@ let AccessCourseMentor = () => {
 
   return (
     <>
-      <h1 className="display-5 text-center mb-4">Assigned Course</h1>
-      <div className="card card-outline-info">
+      <h1 className="display-5 text-center mb-4">List of Assigned Course</h1>
+      <div className="table-responsive">
+        <table className="table table-bordered color-bordered-table info-bordered-table text-dark">
+          <thead>
+            <tr>
+              <th style={{ width: "80%" }}>Course</th>
+              <th style={{ width: "20%" }} className="text-center">
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{dataCourse.title}</td>
+              <td className="text-center">
+                <Link
+                  to={`course/${dataCourse.id}/materials`}
+                  className="btn btn-info"
+                >
+                  <span className="mr-1">
+                    <i className="mdi mdi-settings"></i>
+                  </span>
+                  Manage
+                </Link>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      {/* <div className="card card-outline-info">
         <div className="card-header">
           <h3>Course Title:</h3>
           <h1>{dataCourse.title}</h1>
@@ -41,7 +69,7 @@ let AccessCourseMentor = () => {
             View Details
           </Link>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
