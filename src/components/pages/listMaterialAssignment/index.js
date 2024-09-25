@@ -34,6 +34,9 @@ function ListMaterialAssignment() {
                   <td>{assignment.name}</td>
                   <td className="text-center">
                     <Link to={``} className="btn btn-warning">
+                      <span className="mr-1">
+                        <i className="mdi mdi-pencil"></i>
+                      </span>
                       Edit
                     </Link>
                   </td>
