@@ -1,6 +1,7 @@
 .table td,
 .table th {
   border-color: #999;
+  vertical-align: middle;
 }
 
 .table-bordered td,

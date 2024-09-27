@@ -16,7 +16,28 @@ function ListMaterialAssignment() {
 
   return (
     <div>
-      <h1 className="display-5 text-center mb-4">List of Assignments</h1>
+      <div className="page-titles">
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item">
+            <Link to="/dashboard/mentor">Dashboard</Link>
+          </li>
+          <li className="breadcrumb-item">
+            <Link to="/dashboard/mentor">
+              {assignments?.[0].material?.course?.title}
+            </Link>
+          </li>
+          <li className="breadcrumb-item">
+            <Link to={`/dashboard/mentor/course/${courseId}/materials`}>
+              {assignments?.[0].material?.title}
+            </Link>
+          </li>
+          <li className="breadcrumb-item active">Assignments</li>
+        </ol>
+      </div>
+      <button className="btn btn-success mb-3">
+        <i className="mdi mdi-plus"></i>
+        New Assignment
+      </button>
       <div className="table-responsive">
         <table className="table table-bordered color-bordered-table info-bordered-table text-dark">
           <thead>
@@ -30,14 +51,14 @@ function ListMaterialAssignment() {
           <tbody>
             {assignments?.map((assignment, id) => {
               return (
-                <tr>
+                <tr key={id}>
                   <td>{assignment.name}</td>
                   <td className="text-center">
                     <Link to={``} className="btn btn-warning">
                       <span className="mr-1">
                         <i className="mdi mdi-pencil"></i>
                       </span>
-                      Edit
+                      Sunting
                     </Link>
                   </td>
                 </tr>

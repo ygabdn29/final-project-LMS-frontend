@@ -27,14 +27,21 @@ let AccessCourseMentor = () => {
 
   return (
     <>
-      <h1 className="display-5 text-center mb-4">List of Assigned Course</h1>
+      <div className="page-titles">
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item">
+            <Link to="/dashboard/mentor">Dashboard</Link>
+          </li>
+          <li className="breadcrumb-item active">Course</li>
+        </ol>
+      </div>
       <div className="table-responsive">
         <table className="table table-bordered color-bordered-table info-bordered-table text-dark">
           <thead>
             <tr>
               <th style={{ width: "80%" }}>Course</th>
               <th style={{ width: "20%" }} className="text-center">
-                Action
+                Tindakan
               </th>
             </tr>
           </thead>
@@ -49,7 +56,7 @@ let AccessCourseMentor = () => {
                   <span className="mr-1">
                     <i className="mdi mdi-settings"></i>
                   </span>
-                  Manage
+                  Kelola
                 </Link>
               </td>
             </tr>
