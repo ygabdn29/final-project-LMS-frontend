@@ -4,6 +4,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import "./style.css";
 import $ from "jquery";
 import "datatables.net";
+import "datatables.net-dt/css/dataTables.dataTables.css";
 
 const ListMaterialMentor = () => {
   const { courseId } = useParams();
@@ -44,6 +45,10 @@ const ListMaterialMentor = () => {
   }, [courseId]);
 
   useEffect(() => {
+    if ($.fn.dataTable.isDataTable("#myTable")) {
+      $("#myTable").DataTable().destroy();
+    }
+
     if (materials.length > 0) {
       $("#myTable").DataTable({
         data: materials,
@@ -60,10 +65,11 @@ const ListMaterialMentor = () => {
           },
         ],
         columns: [
-          { data: "id", title: "No" },
-          { data: "title", title: "Title" },
+          { data: "id", title: "No", width: "10%" },
+          { data: "title", title: "Title", width: "70%" },
           {
             title: "Tindakan",
+            width: "20%",
             render: (data, type, full, meta) => {
               let html = "";
               html += `
@@ -92,12 +98,6 @@ const ListMaterialMentor = () => {
         ],
       });
     }
-
-    // return () => {
-    //   if ($.fn.dataTable.isDataTable("#myTable")) {
-    //     $("#myTable").DataTable().destroy(true);
-    //   }
-    // };
   }, [materials]);
 
   const handleDelete = (materialId) => {
@@ -139,10 +139,15 @@ const ListMaterialMentor = () => {
             </ol>
           </div>
 
+          <button className="btn btn-success mb-3">
+            <i className="mdi mdi-plus"></i>
+            New Material
+          </button>
           <div className="table-responsive">
             <div id="mytable-wrapper" className="dataTables_warapper no-footer">
               <div className="dataTables_length" id="myTable_length"></div>
               <div className="dataTables_filter" id="myTable_filter"></div>
+
               <table
                 id="myTable"
                 className="table table-bordered color-bordered-table info-bordered-table text-dark "
@@ -159,7 +164,7 @@ const ListMaterialMentor = () => {
             </div>
           </div>
 
-          <div>
+          {/* <div>
             <button className="btn btn-success mb-3">
               <i className="mdi mdi-plus"></i>
               New Material
@@ -206,7 +211,7 @@ const ListMaterialMentor = () => {
                 </tbody>
               </table>
             </div>
-          </div>
+          </div> */}
         </div>
       ) : (
         <p>No materials found</p>
