@@ -73,6 +73,15 @@ const ListMaterialMentor = () => {
             render: (data, type, full, meta) => {
               let html = "";
               html += `
+              <a
+                    href="/dashboard/mentor/course/${courseId}/edit-material/${full.id}"
+                    class="btn btn-warning mr-3"
+                  >
+                    <span className="mr-1">
+                      <i class="mdi mdi-pencil"></i>
+                    </span>
+                    Sunting
+                  </a>
                  <a 
                     href="/dashboard/mentor/course/1/material/${full.id}/assignments"
                     class="btn btn-info"
@@ -82,15 +91,7 @@ const ListMaterialMentor = () => {
                     </span>
                       Kelola
                   </a>
-                  <a
-                    href="/dashboard/mentor/course/${courseId}/edit-material/${full.id}"
-                    class="btn btn-warning mr-3"
-                  >
-                    <span className="mr-1">
-                      <i className="mdi mdi-pencil"></i>
-                    </span>
-                    Sunting
-                  </a>
+                  
               `;
               return html;
             },

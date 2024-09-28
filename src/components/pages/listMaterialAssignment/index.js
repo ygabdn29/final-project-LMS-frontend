@@ -1,6 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import $ from "jquery";
+import "datatables.net";
+import "datatables.net-dt/css/dataTables.dataTables.css";
 
 function ListMaterialAssignment() {
   const [assignments, setAssignments] = useState();
@@ -14,8 +17,56 @@ function ListMaterialAssignment() {
       .catch((error) => console.log(error));
   }, []);
 
+  useEffect(() => {
+    if ($.fn.dataTable.isDataTable("#myTable")) {
+      $("#myTable").DataTable().destroy();
+    }
+
+    if (assignments?.length > 0) {
+      $("#myTable").DataTable({
+        data: assignments,
+        columnDefs: [
+          {
+            target: [0],
+            visible: true,
+            searchable: true,
+          },
+          {
+            target: [2],
+            searchable: false,
+            className: "text-center",
+          },
+        ],
+        columns: [
+          { data: "id", title: "No", width: "10%" },
+          { data: "name", title: "Title", width: "70%" },
+          {
+            title: "Tindakan",
+            width: "20%",
+            render: (data, type, full, meta) => {
+              let html = "";
+              html += `
+                  <a
+                    href="/dashboard/mentor/course/${courseId}/edit-material/${full.id}"
+                    class="btn btn-warning mr-3"
+                  >
+                    <span className="mr-1">
+                      <i class="mdi mdi-pencil"></i>
+                    </span>
+                    Sunting
+                  </a>
+              `;
+              return html;
+            },
+          },
+        ],
+      });
+    }
+  }, [assignments]);
+
   return (
     <div>
+      {console.log(assignments)}
       <div className="page-titles">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
@@ -38,7 +89,29 @@ function ListMaterialAssignment() {
         <i className="mdi mdi-plus"></i>
         New Assignment
       </button>
+
       <div className="table-responsive">
+        <div id="mytable-wrapper" className="dataTables_warapper no-footer">
+          <div className="dataTables_length" id="myTable_length"></div>
+          <div className="dataTables_filter" id="myTable_filter"></div>
+
+          <table
+            id="myTable"
+            className="table table-bordered color-bordered-table info-bordered-table text-dark "
+            role="grid"
+            aria-describedby="myTable_info"
+          ></table>
+          <div
+            className="dataTables_info"
+            id="myTable_info"
+            role="status"
+            aria-live="polite"
+          ></div>
+          <div className="dataTables_paginate paging_simple_numbers"></div>
+        </div>
+      </div>
+
+      {/* <div className="table-responsive">
         <table className="table table-bordered color-bordered-table info-bordered-table text-dark">
           <thead>
             <tr>
@@ -66,7 +139,7 @@ function ListMaterialAssignment() {
             })}
           </tbody>
         </table>
-      </div>
+      </div> */}
     </div>
   );
 }
