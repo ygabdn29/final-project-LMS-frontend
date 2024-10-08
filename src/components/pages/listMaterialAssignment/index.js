@@ -34,6 +34,7 @@ function ListMaterialAssignment() {
           {
             target: [2],
             searchable: false,
+            orderable: false,
             className: "text-center",
           },
         ],
@@ -47,7 +48,7 @@ function ListMaterialAssignment() {
               let html = "";
               html += `
                   <a
-                    href="/dashboard/mentor/course/${courseId}/edit-material/${full.id}"
+                    href="/dashboard/mentor/course/${courseId}/material/${materialId}/assignment/edit-assignment/${full.id}"
                     class="btn btn-warning mr-3"
                   >
                     <span className="mr-1">
@@ -66,7 +67,6 @@ function ListMaterialAssignment() {
 
   return (
     <div>
-      {console.log(assignments)}
       <div className="page-titles">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
@@ -85,29 +85,36 @@ function ListMaterialAssignment() {
           <li className="breadcrumb-item active">Assignments</li>
         </ol>
       </div>
-      <button className="btn btn-success mb-3">
-        <i className="mdi mdi-plus"></i>
-        New Assignment
-      </button>
 
-      <div className="table-responsive">
-        <div id="mytable-wrapper" className="dataTables_warapper no-footer">
-          <div className="dataTables_length" id="myTable_length"></div>
-          <div className="dataTables_filter" id="myTable_filter"></div>
+      <div className="card">
+        <div className="card-body">
+          <Link
+            to={`/dashboard/mentor/course/${courseId}/material/${materialId}/new-assignment`}
+            className="btn btn-success mb-3 text-light align-self-start"
+          >
+            <i className="mdi mdi-plus"></i>
+            New Assignment
+          </Link>
+          <div className="table-responsive">
+            <div id="mytable-wrapper" className="dataTables_warapper no-footer">
+              <div className="dataTables_length" id="myTable_length"></div>
+              <div className="dataTables_filter" id="myTable_filter"></div>
 
-          <table
-            id="myTable"
-            className="table table-bordered color-bordered-table info-bordered-table text-dark "
-            role="grid"
-            aria-describedby="myTable_info"
-          ></table>
-          <div
-            className="dataTables_info"
-            id="myTable_info"
-            role="status"
-            aria-live="polite"
-          ></div>
-          <div className="dataTables_paginate paging_simple_numbers"></div>
+              <table
+                id="myTable"
+                className="table table-bordered color-bordered-table info-bordered-table text-dark "
+                role="grid"
+                aria-describedby="myTable_info"
+              ></table>
+              <div
+                className="dataTables_info"
+                id="myTable_info"
+                role="status"
+                aria-live="polite"
+              ></div>
+              <div className="dataTables_paginate paging_simple_numbers"></div>
+            </div>
+          </div>
         </div>
       </div>
 

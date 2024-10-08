@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import $, { data } from "jquery";
+import "datatables.net";
+import "datatables.net-dt/css/dataTables.dataTables.css";
 
 let AccessCourseMentor = () => {
   const [dataCourse, setDataCourse] = useState(null);
@@ -14,12 +17,60 @@ let AccessCourseMentor = () => {
       })
       .then((response) => {
         setDataCourse(response.data.data);
-        console.log(response.data.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
+
+  useEffect(() => {
+    if ($.fn.dataTable.isDataTable("#myTable")) {
+      $("#myTable").DataTable().destroy();
+    }
+
+    if (dataCourse?.length > 0) {
+      $("#myTable").DataTable({
+        data: dataCourse,
+        columnDefs: [
+          {
+            target: [0],
+            visible: true,
+            searchable: true,
+          },
+          {
+            target: [2],
+            searchable: false,
+            orderable: false,
+            className: "text-center",
+          },
+        ],
+        columns: [
+          { data: "id", title: "No", width: "10%" },
+          { data: "title", title: "Title", width: "70%" },
+          {
+            title: "Tindakan",
+            width: "20%",
+            render: (data, type, full, meta) => {
+              let html = "";
+              html += `
+                 <a 
+                    href="/dashboard/mentor/course/${full.id}/materials"
+                    class="btn btn-info"
+                  >
+                    <span className="mr-1">
+                      <i class="mdi mdi-settings"></i>
+                    </span>
+                      Kelola
+                  </a>
+                  
+              `;
+              return html;
+            },
+          },
+        ],
+      });
+    }
+  }, [dataCourse]);
 
   if (dataCourse === null) {
     return <h2>Loading...</h2>;
@@ -35,33 +86,31 @@ let AccessCourseMentor = () => {
           <li className="breadcrumb-item active">Course</li>
         </ol>
       </div>
-      <div className="table-responsive">
-        <table className="table table-bordered color-bordered-table info-bordered-table text-dark">
-          <thead>
-            <tr>
-              <th style={{ width: "80%" }}>Course</th>
-              <th style={{ width: "20%" }} className="text-center">
-                Tindakan
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{dataCourse.title}</td>
-              <td className="text-center">
-                <Link
-                  to={`course/${dataCourse.id}/materials`}
-                  className="btn btn-info"
-                >
-                  <span className="mr-1">
-                    <i className="mdi mdi-settings"></i>
-                  </span>
-                  Kelola
-                </Link>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+
+      <div className="card">
+        {console.log(dataCourse)}
+        <div className="card-body">
+          <div className="table-responsive">
+            <div id="mytable-wrapper" className="dataTables_warapper no-footer">
+              <div className="dataTables_length" id="myTable_length"></div>
+              <div className="dataTables_filter" id="myTable_filter"></div>
+
+              <table
+                id="myTable"
+                className="table table-bordered color-bordered-table info-bordered-table text-dark "
+                role="grid"
+                aria-describedby="myTable_info"
+              ></table>
+              <div
+                className="dataTables_info"
+                id="myTable_info"
+                role="status"
+                aria-live="polite"
+              ></div>
+              <div className="dataTables_paginate paging_simple_numbers"></div>
+            </div>
+          </div>
+        </div>
       </div>
       {/* <div className="card card-outline-info">
         <div className="card-header">

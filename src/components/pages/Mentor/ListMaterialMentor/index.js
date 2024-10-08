@@ -61,6 +61,7 @@ const ListMaterialMentor = () => {
           {
             target: [2],
             searchable: false,
+            orderable: false,
             className: "text-center",
           },
         ],
@@ -125,7 +126,6 @@ const ListMaterialMentor = () => {
 
   return (
     <>
-      {console.log(materials)}
       {materials.length > 0 ? (
         <div>
           <div className="page-titles">
@@ -140,28 +140,35 @@ const ListMaterialMentor = () => {
             </ol>
           </div>
 
-          <button className="btn btn-success mb-3">
-            <i className="mdi mdi-plus"></i>
-            New Material
-          </button>
-          <div className="table-responsive">
-            <div id="mytable-wrapper" className="dataTables_warapper no-footer">
-              <div className="dataTables_length" id="myTable_length"></div>
-              <div className="dataTables_filter" id="myTable_filter"></div>
+          <div className="card">
+            <div className="card-body">
+              <button className="btn btn-success mb-3">
+                <i className="mdi mdi-plus"></i>
+                New Material
+              </button>
+              <div className="table-responsive">
+                <div
+                  id="mytable-wrapper"
+                  className="dataTables_warapper no-footer"
+                >
+                  <div className="dataTables_length" id="myTable_length"></div>
+                  <div className="dataTables_filter" id="myTable_filter"></div>
 
-              <table
-                id="myTable"
-                className="table table-bordered color-bordered-table info-bordered-table text-dark "
-                role="grid"
-                aria-describedby="myTable_info"
-              ></table>
-              <div
-                className="dataTables_info"
-                id="myTable_info"
-                role="status"
-                aria-live="polite"
-              ></div>
-              <div className="dataTables_paginate paging_simple_numbers"></div>
+                  <table
+                    id="myTable"
+                    className="table table-bordered color-bordered-table info-bordered-table text-dark "
+                    role="grid"
+                    aria-describedby="myTable_info"
+                  ></table>
+                  <div
+                    className="dataTables_info"
+                    id="myTable_info"
+                    role="status"
+                    aria-live="polite"
+                  ></div>
+                  <div className="dataTables_paginate paging_simple_numbers"></div>
+                </div>
+              </div>
             </div>
           </div>
 
