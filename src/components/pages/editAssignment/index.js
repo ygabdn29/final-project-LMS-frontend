@@ -42,136 +42,122 @@ function EditAssignment() {
         </ol>
       </div>
 
-      <form
-        className="form-group shadow p-4 rounded"
+      <div
+        className="card card-outline-info"
         style={{ backgroundColor: "#f8f9fa" }}
       >
-        <h4 className="text-center">Course Detail</h4>
-        <div className="mb-3">
-          <label htmlFor="firstName" className="mb-2 align-self-start">
-            <strong>Course Title:</strong>
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            value={assignment?.material?.course?.title}
-            disabled
-            readOnly={true}
-          />
+        <div className="card-header">
+          <h4 className="mb-0 text-white">Course Detail</h4>
         </div>
-        <div className="mb-3">
-          <label htmlFor="firstName" className="mb-2 align-self-start">
-            <strong>Course Description:</strong>
-          </label>
-          <textarea
-            className="form-control"
-            value={assignment?.material?.course?.description}
-            disabled
-            readOnly={true}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="firstName" className="mb-2 align-self-start">
-            <strong>Mentor:</strong>
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            value={assignment?.material.course?.mentor.username}
-            disabled
-            readOnly={true}
-          />
-        </div>
-      </form>
 
-      <form
-        className="form-group shadow p-4 rounded"
+        <div className="d-flex flex-column card-body">
+          <label>
+            Course Title:
+            <span className="ml-1 font-bold">
+              {assignment?.material?.course?.title}
+            </span>
+          </label>
+
+          <label>
+            Mentor:
+            <span className="ml-1 font-bold">
+              {assignment?.material.course?.mentor.username}
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <div
+        className="card card-outline-info"
         style={{ backgroundColor: "#f8f9fa" }}
       >
-        <h4 className="text-center">Material Detail</h4>
-        <div className="mb-3">
-          <label htmlFor="title" className="form-label">
-            <strong>Material Title</strong>
-          </label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            className="form-control"
-            value={assignment?.material.title}
-            placeholder={assignment?.material.title}
-            disabled
-          />
-        </div>
-      </form>
-
-      <form
-        className="form-group shadow p-4 rounded"
-        style={{ backgroundColor: "#f8f9fa" }}
-      >
-        <h4 className="text-center">Edit Assignment</h4>
-        <div className="mb-3">
-          <label htmlFor="title" className="form-label">
-            <strong>Assignment Title</strong>
-          </label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            className="form-control"
-            value={assignment?.name}
-            placeholder={assignment?.name}
-          />
+        <div className="card-header">
+          <h4 className="mb-0 text-white">Material Detail</h4>
         </div>
 
-        <div className="mb-3">
-          <label htmlFor="title" className="form-label">
-            <strong>Content</strong>
-          </label>
-          <textarea
-            type="text"
-            id="title"
-            name="title"
-            className="form-control"
-            value={assignment?.content}
-            placeholder={assignment?.content}
-          />
+        <div className="card-body">
+          <div className="mb-3">
+            <label>
+              Material Title
+              <span className="ml-1 font-bold">
+                {assignment?.material.title}
+              </span>
+            </label>
+          </div>
         </div>
+      </div>
 
-        <div className="mb-3">
-          <label htmlFor="title" className="form-label">
-            <strong>Passing Score</strong>
-          </label>
-          <input
-            type="number"
-            id="title"
-            name="title"
-            className="form-control"
-            value={assignment?.passingScore}
-            placeholder={assignment?.passingScore}
-          />
+      <div className="card card-outline-info">
+        <div className="card-header">
+          <h4 className="mb-0 text-white">Edit Material</h4>
         </div>
+        <form
+          className="form-group shadow p-4 rounded"
+          style={{ backgroundColor: "#f8f9fa" }}
+        >
+          <div className="mb-3">
+            <label htmlFor="title" className="form-label">
+              <strong>Assignment Title</strong>
+            </label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              className="form-control"
+              value={assignment?.name}
+              placeholder={assignment?.name}
+            />
+          </div>
 
-        <div className="mb-3">
-          <label htmlFor="title" className="form-label">
-            <strong>Material Title</strong>
-          </label>
-          <input
-            type="date"
-            id="title"
-            name="title"
-            className="form-control"
-            value={assignment?.dueDate}
-            placeholder={assignment?.dueDate}
-          />
-        </div>
+          <div className="mb-3">
+            <label htmlFor="title" className="form-label">
+              <strong>Content</strong>
+            </label>
+            <textarea
+              type="text"
+              id="title"
+              name="title"
+              className="form-control"
+              value={assignment?.content}
+              placeholder={assignment?.content}
+            />
+          </div>
 
-        <div className="text-center">
-          <button type="submit" className="btn btn-success px-4 mt-3">
-            Submit
-          </button>
-        </div>
-      </form>
+          <div className="mb-3">
+            <label htmlFor="title" className="form-label">
+              <strong>Passing Score</strong>
+            </label>
+            <input
+              type="number"
+              id="title"
+              name="title"
+              className="form-control"
+              value={assignment?.passingScore}
+              placeholder={assignment?.passingScore}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="title" className="form-label">
+              <strong>Material Title</strong>
+            </label>
+            <input
+              type="date"
+              id="title"
+              name="title"
+              className="form-control"
+              value={assignment?.dueDate}
+              placeholder={assignment?.dueDate}
+            />
+          </div>
+
+          <div className="text-center">
+            <button type="submit" className="btn btn-success px-4 mt-3">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

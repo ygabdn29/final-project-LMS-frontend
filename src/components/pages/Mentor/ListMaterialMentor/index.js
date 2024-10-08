@@ -127,7 +127,7 @@ const ListMaterialMentor = () => {
   return (
     <>
       {materials.length > 0 ? (
-        <div>
+        <>
           <div className="page-titles">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">
@@ -142,10 +142,13 @@ const ListMaterialMentor = () => {
 
           <div className="card">
             <div className="card-body">
-              <button className="btn btn-success mb-3">
+              <Link
+                to={`/dashboard/mentor/course/${courseId}/new-material`}
+                className="btn btn-success mb-3"
+              >
                 <i className="mdi mdi-plus"></i>
                 New Material
-              </button>
+              </Link>
               <div className="table-responsive">
                 <div
                   id="mytable-wrapper"
@@ -220,7 +223,7 @@ const ListMaterialMentor = () => {
               </table>
             </div>
           </div> */}
-        </div>
+        </>
       ) : (
         <p>No materials found</p>
       )}
