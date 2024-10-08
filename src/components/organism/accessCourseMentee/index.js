@@ -31,7 +31,7 @@ let AccessCourseMentee = () => {
       <h1 className="mb-3">Enrolled Courses: </h1>
       <div className="col-md-12 px-20">
         <ul className="list-unstyled">
-          {dataCourse.map((courses) => (
+          {dataCourse?.map((courses) => (
             <li key={courses.course.id} className="card card-outline-info">
               <div className="card-header">
                 <h2 className="mb-1">Course Title:</h2>

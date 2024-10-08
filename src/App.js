@@ -24,6 +24,8 @@ import AdminDashboard from "./components/pages/adminDashboard/inedx";
 import NewAssignment from "./components/pages/Mentor/NewAssignment";
 import ListAssignment from "./components/pages/Mentee/ListAssignment";
 import ProtectedRoute from "./components/pages/ProtectedRoute";
+import ListMaterialAssignment from "./components/pages/listMaterialAssignment";
+import EditAssignment from "./components/pages/editAssignment";
 
 function App() {
   const userDetails = JSON.parse(sessionStorage.getItem("userDetails"));
@@ -116,6 +118,14 @@ function App() {
                   }
                 />
                 <Route
+                  path=":courseId/material/:materialId/assignments"
+                  element={
+                    <ProtectedRoute>
+                      <ListMaterialAssignment />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
                   path=":courseId/new-material"
                   element={
                     <ProtectedRoute>
@@ -136,6 +146,14 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <NewAssignment />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path=":courseId/material/:materialId/assignment/edit-assignment/:assignmentId"
+                  element={
+                    <ProtectedRoute>
+                      <EditAssignment></EditAssignment>
                     </ProtectedRoute>
                   }
                 />
