@@ -50,6 +50,12 @@
       href="/static/assets/plugins/toast-master/css/jquery.toast.css"
       rel="stylesheet"
     />
+
+    <!-- dropify -->
+    <link
+      href="/static/assets/plugins/dropify/dist/css/dropify.min.css"
+      rel="stylesheet"
+    />
     <!-- Custom CSS -->
     <link href="/static/css/style.css" rel="stylesheet" />
     <!-- You can change the theme colors from here -->
@@ -78,6 +84,50 @@
     <script src="/static/js/jquery.slimscroll.js"></script>
     <!--Wave Effects -->
     <script src="/static/js/waves.js"></script>
+    <!--Dropify -->
+    <script src="/static/assets/plugins/dropify/dist/js/dropify.min.js"></script>
+    <script>
+      $(document).ready(function() {
+          // Basic
+          $('.dropify').dropify();
+  
+          // Translated
+          $('.dropify-fr').dropify({
+              messages: {
+                  default: 'Glissez-déposez un fichier ici ou cliquez',
+                  replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                  remove: 'Supprimer',
+                  error: 'Désolé, le fichier trop volumineux'
+              }
+          });
+  
+          // Used events
+          var drEvent = $('#input-file-events').dropify();
+  
+          drEvent.on('dropify.beforeClear', function(event, element) {
+              return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+          });
+  
+          drEvent.on('dropify.afterClear', function(event, element) {
+              alert('File deleted');
+          });
+  
+          drEvent.on('dropify.errors', function(event, element) {
+              console.log('Has Errors');
+          });
+  
+          var drDestroy = $('#input-file-to-destroy').dropify();
+          drDestroy = drDestroy.data('dropify')
+          $('#toggleDropify').on('click', function(e) {
+              e.preventDefault();
+              if (drDestroy.isDropified()) {
+                  drDestroy.destroy();
+              } else {
+                  drDestroy.init();
+              }
+          })
+      });
+      </script>
     <!--Menu sidebar -->
     <script src="/static/js/sidebarmenu.js"></script>
     <!--stickey kit -->

@@ -20,10 +20,11 @@ import ManageCourses from "./components/pages/manageCourses";
 import GradeSubmission from "./components/pages/gradeSubmission";
 import MenteeDashboard from "./components/pages/Mentee/MenteeDashboard";
 import MentorDashboard from "./components/pages/Mentor/MentorDashboard";
-import AdminDashboard from "./components/pages/adminDashboard/inedx";
+import AdminDashboard from "./components/pages/adminDashboard/index";
 import NewAssignment from "./components/pages/Mentor/NewAssignment";
 import ListAssignment from "./components/pages/Mentee/ListAssignment";
 import ProtectedRoute from "./components/pages/ProtectedRoute";
+import ManageAsset from "./components/pages/ManageAsset";
 
 function App() {
   const userDetails = JSON.parse(sessionStorage.getItem("userDetails"));
@@ -159,7 +160,16 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route
+              path="manage/assets"
+              element={
+                <ProtectedRoute>
+                  <ManageAsset />
+                </ProtectedRoute>
+              }
+            />
             </Route>
+            
           </Route>
         </Routes>
       </BrowserRouter>

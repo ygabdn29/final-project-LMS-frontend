@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
+// import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 let ListCoursesAdmin = () => {
   const [dataCourses, setDataCourses] = useState([]);
   const [dataMentors, setDataMentors] = useState([]);
+  const [fetchStatus, setFetchStatus] = useState(true);
+  const [dataUsers, setDataUsers] = useState([]);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [updatedCourse, setUpdatedCourse] = useState({
@@ -21,10 +24,6 @@ let ListCoursesAdmin = () => {
     mentorId: "",
   });
 
-  useEffect(() => {
-    fetchCourses();
-  }, []);
-
   const fetchCourses = () => {
     axios
       .get("http://localhost:8080/api/course")
@@ -36,16 +35,38 @@ let ListCoursesAdmin = () => {
       });
   };
 
-  useEffect(() => {
+  const fetchUsers = () => {
+    axios
+      .get("http://localhost:8080/api/account/mentees")
+      .then((response) => {
+        setDataUsers(response.data.data);
+        console.log("Data User: ", response.data.data);
+      })
+      .catch((error) => {
+        console.log("Error msg: ", error.message);
+      });
+    setFetchStatus(false);
+  };
+
+  const fetchMentors = () => {
     axios
       .get("http://localhost:8080/api/account/mentors")
       .then((response) => {
         setDataMentors(response.data.data);
+        console.log("Response Edit Mentor : ", response.data.data);
       })
       .catch((error) => {
-        console.error("Error getting list mentors: ", error);
+        console.log("Error msg: ", error.message);
       });
-  }, []);
+  };
+
+  useEffect(() => {
+    if (fetchStatus == true) {
+      fetchCourses();
+      fetchUsers();
+      fetchMentors();
+    }
+  }, [fetchStatus]);
 
   const handleCreateCourse = (e) => {
     e.preventDefault();
@@ -127,18 +148,33 @@ let ListCoursesAdmin = () => {
   return (
     <>
       <div className="container">
-        <header>
-          <h1 className="text-center mt-4">Course Management</h1>
-        </header>
+        <div className="page-titles p-b-0">
+          <ol className="breadcrumb">
+            <li className="breadcrumb-item active">Course management</li>
+            <li className="breadcrumb-item">
+              <a href="#">Page 2</a>
+            </li>
+            <li className="breadcrumb-item">
+              <a href="#">Page 3</a>
+            </li>
+          </ol>
+        </div>
+
         <main>
-          <Button
-            variant="success"
-            className="text-decoration-none rounded text-light bg-success px-4 py-1 mb-3"
-            onClick={() => setShowCreateModal(true)}
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip id="button-tooltip">Create Course</Tooltip>}
           >
-            Create Course
-          </Button>
-          <table className="table color-table dark-table" id="tableCourse">
+            <Button
+              variant="success"
+              className="d-flex align-items-center rounded px-4 py-2 mb-3 mt-2"
+              onClick={() => setShowCreateModal(true)}
+            >
+              <i className="fa fa-plus"></i>
+            </Button>
+          </OverlayTrigger>
+
+          <table className="table color-table info-table" id="tableCourse">
             <thead className="table-dark">
               <tr>
                 <th>ID</th>
@@ -156,20 +192,30 @@ let ListCoursesAdmin = () => {
                   <td>{course.description}</td>
                   <td>{course.mentor.username}</td>
                   <td className="text-center ">
-                    <Button
-                      className="text-decoration-none rounded text-light bg-warning px-4 py-1 mr-4"
-                      onClick={() => handleEditClick(course)}
-                      variant="warning"
+                    <OverlayTrigger
+                      placement="top"
+                      overlay={<Tooltip id="button-tooltip">Edit</Tooltip>}
                     >
-                      Edit
-                    </Button>
-                    <Button
-                      variant="danger"
-                      className="text-decoration-none rounded text-light bg-danger px-4 py-1"
-                      onClick={() => handleDeleteClick(course)}
+                      <Button
+                        className="text-decoration-none rounded text-light bg-warning px-4 py-1 mr-4"
+                        onClick={() => handleEditClick(course)}
+                        variant="warning"
+                      >
+                        <i className="fa fa-pencil"></i>
+                      </Button>
+                    </OverlayTrigger>
+                    <OverlayTrigger
+                      placement="top"
+                      overlay={<Tooltip id="button-tooltip">Delete</Tooltip>}
                     >
-                      Delete
-                    </Button>
+                      <Button
+                        variant="danger"
+                        className="text-decoration-none rounded text-light bg-danger px-4 py-1"
+                        onClick={() => handleDeleteClick(course)}
+                      >
+                        <i className="fa fa-trash-o"></i>
+                      </Button>
+                    </OverlayTrigger>
                   </td>
                 </tr>
               ))}
@@ -179,8 +225,19 @@ let ListCoursesAdmin = () => {
       </div>
 
       <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>Edit Course</Modal.Title>
+          <button
+            type="button"
+            className="close"
+            aria-hidden={!showEditModal}
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              setShowEditModal(false);
+            }}
+          >
+            ×
+          </button>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleEditCourse}>
@@ -237,8 +294,19 @@ let ListCoursesAdmin = () => {
       </Modal>
 
       <Modal show={showCreateModal} onHide={() => setShowCreateModal(false)}>
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>Create Course</Modal.Title>
+          <button
+            type="button"
+            className="close"
+            aria-hidden={!showCreateModal}
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              setShowCreateModal(false);
+            }}
+          >
+            ×
+          </button>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleCreateCourse}>
@@ -271,14 +339,14 @@ let ListCoursesAdmin = () => {
                 <option value="" disabled>
                   Select Mentor
                 </option>
-                {dataMentors.map((mentor) => (
-                  <option key={mentor.id} value={mentor.id}>
-                    {mentor.username}
+                {dataUsers.map((user) => (
+                  <option key={user.id} value={user.id}>
+                    {user.username}
                   </option>
                 ))}
               </Form.Control>
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="success" type="submit" className="mt-3">
               Create Course
             </Button>
           </Form>
@@ -289,3 +357,5 @@ let ListCoursesAdmin = () => {
 };
 
 export default ListCoursesAdmin;
+
+//listCourseAdmin
