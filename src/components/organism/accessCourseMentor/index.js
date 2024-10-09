@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import $, { data } from "jquery";
+import "./index.css";
 import "datatables.net";
 import "datatables.net-dt/css/dataTables.dataTables.css";
 
@@ -36,6 +37,7 @@ let AccessCourseMentor = () => {
             target: [0],
             visible: true,
             searchable: true,
+            className: "text-center",
           },
           {
             target: [2],
@@ -45,8 +47,8 @@ let AccessCourseMentor = () => {
           },
         ],
         columns: [
-          { data: "id", title: "No", width: "10%" },
-          { data: "title", title: "Title", width: "70%" },
+          { data: "id", title: "No", width: "2%" },
+          { data: "title", title: "Title", width: "78%" },
           {
             title: "Tindakan",
             width: "20%",
@@ -86,7 +88,7 @@ let AccessCourseMentor = () => {
           <li className="breadcrumb-item active">Course</li>
         </ol>
       </div>
-
+      {console.log(dataCourse)}
       <div className="card">
         {console.log(dataCourse)}
         <div className="card-body">
