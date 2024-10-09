@@ -66,8 +66,8 @@ const ListMaterialMentor = () => {
           },
         ],
         columns: [
-          { data: "id", title: "No", width: "10%" },
-          { data: "title", title: "Title", width: "70%" },
+          { data: "id", title: "No", width: "2%" },
+          { data: "title", title: "Title", width: "78%" },
           {
             title: "Tindakan",
             width: "20%",
@@ -144,10 +144,11 @@ const ListMaterialMentor = () => {
             <div className="card-body">
               <Link
                 to={`/dashboard/mentor/course/${courseId}/new-material`}
-                className="btn btn-success mb-3"
+                className="btn btn-success"
+                style={{ marginBottom: "-0.5rem" }}
               >
                 <i className="mdi mdi-plus"></i>
-                New Material
+                Tambah Material
               </Link>
               <div className="table-responsive">
                 <div
