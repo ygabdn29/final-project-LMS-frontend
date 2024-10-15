@@ -39,8 +39,8 @@ function ListMaterialAssignment() {
           },
         ],
         columns: [
-          { data: "id", title: "No", width: "10%" },
-          { data: "name", title: "Title", width: "70%" },
+          { data: "id", title: "No", width: "1%" },
+          { data: "name", title: "Title", width: "79%" },
           {
             title: "Tindakan",
             width: "20%",
@@ -90,10 +90,11 @@ function ListMaterialAssignment() {
         <div className="card-body">
           <Link
             to={`/dashboard/mentor/course/${courseId}/material/${materialId}/new-assignment`}
-            className="btn btn-success mb-3 text-light align-self-start"
+            className="btn btn-success text-light align-self-start"
+            style={{ marginBottom: "-0.5rem" }}
           >
             <i className="mdi mdi-plus"></i>
-            New Assignment
+            Tugas
           </Link>
           <div className="table-responsive">
             <div id="mytable-wrapper" className="dataTables_warapper no-footer">

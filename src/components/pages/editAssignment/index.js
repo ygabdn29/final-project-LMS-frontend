@@ -1,11 +1,12 @@
 import axios from "axios";
 import { error } from "jquery";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 function EditAssignment() {
   const { courseId, materialId, assignmentId } = useParams();
   const [assignment, setAssignment] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -20,8 +21,31 @@ function EditAssignment() {
     console.log(test);
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setAssignment((oldAssignment) => ({ ...oldAssignment, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    axios
+      .post(
+        `http://localhost:8080/api/course/${courseId}/material/${materialId}/assignment/new`,
+        assignment
+      )
+      .then((response) => {
+        alert("Assignment Updated Successfully!");
+        navigate(
+          `/dashboard/mentor/course/${courseId}/material/${materialId}/assignments`
+        );
+      })
+      .catch((error) => alert(error));
+  };
+
   return (
-    <div className="container mt-4">
+    <div className="container">
       <div className="page-titles">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
@@ -42,70 +66,69 @@ function EditAssignment() {
         </ol>
       </div>
 
-      <div
-        className="card card-outline-info"
-        style={{ backgroundColor: "#f8f9fa" }}
-      >
-        <div className="card-header">
-          <h4 className="mb-0 text-white">Course Detail</h4>
-        </div>
+      <div className="d-flex">
+        <div
+          className="card card-outline-info mr-2"
+          style={{ flex: "1 1 50%" }}
+        >
+          <div className="card-header">
+            <h4 className="mb-0 text-white">Course Detail</h4>
+          </div>
 
-        <div className="d-flex flex-column card-body">
-          <label>
-            Course Title:
-            <span className="ml-1 font-bold">
-              {assignment?.material?.course?.title}
-            </span>
-          </label>
-
-          <label>
-            Mentor:
-            <span className="ml-1 font-bold">
-              {assignment?.material.course?.mentor.username}
-            </span>
-          </label>
-        </div>
-      </div>
-
-      <div
-        className="card card-outline-info"
-        style={{ backgroundColor: "#f8f9fa" }}
-      >
-        <div className="card-header">
-          <h4 className="mb-0 text-white">Material Detail</h4>
-        </div>
-
-        <div className="card-body">
-          <div className="mb-3">
+          <div className="d-flex flex-column card-body">
             <label>
-              Material Title
+              Course Title:
               <span className="ml-1 font-bold">
-                {assignment?.material.title}
+                {assignment?.material?.course?.title}
               </span>
             </label>
+
+            <label>
+              Mentor:
+              <span className="ml-1 font-bold">
+                {assignment?.material.course?.mentor.username}
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div
+          className="card card-outline-info ml-2 "
+          style={{ flex: "1 1 50%" }}
+        >
+          <div className="card-header">
+            <h4 className="mb-0 text-white">Material Detail</h4>
+          </div>
+
+          <div className="card-body">
+            <div className="mb-3">
+              <label>
+                Material Title:
+                <span className="ml-1 font-bold">
+                  {assignment?.material.title}
+                </span>
+              </label>
+            </div>
           </div>
         </div>
       </div>
 
       <div className="card card-outline-info">
         <div className="card-header">
-          <h4 className="mb-0 text-white">Edit Material</h4>
+          <h4 className="mb-0 text-white">Assignment</h4>
         </div>
-        <form
-          className="form-group shadow p-4 rounded"
-          style={{ backgroundColor: "#f8f9fa" }}
-        >
+        <form className="form-group shadow p-4 rounded" onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="title" className="form-label">
               <strong>Assignment Title</strong>
             </label>
             <input
               type="text"
-              id="title"
-              name="title"
+              id="name"
+              name="name"
               className="form-control"
               value={assignment?.name}
-              placeholder={assignment?.name}
+              onChange={handleChange}
             />
           </div>
 
@@ -115,10 +138,11 @@ function EditAssignment() {
             </label>
             <textarea
               type="text"
-              id="title"
-              name="title"
+              id="content"
+              name="content"
               className="form-control"
               value={assignment?.content}
+              onChange={handleChange}
               placeholder={assignment?.content}
             />
           </div>
@@ -129,24 +153,26 @@ function EditAssignment() {
             </label>
             <input
               type="number"
-              id="title"
-              name="title"
+              id="passingScore"
+              name="passingScore"
               className="form-control"
               value={assignment?.passingScore}
+              onChange={handleChange}
               placeholder={assignment?.passingScore}
             />
           </div>
 
           <div className="mb-3">
             <label htmlFor="title" className="form-label">
-              <strong>Material Title</strong>
+              <strong>Due Date</strong>
             </label>
             <input
               type="date"
-              id="title"
-              name="title"
+              id="dueDate"
+              name="dueDate"
               className="form-control"
               value={assignment?.dueDate}
+              onChange={handleChange}
               placeholder={assignment?.dueDate}
             />
           </div>

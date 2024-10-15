@@ -110,7 +110,7 @@ const EditMaterial = () => {
 
       <div className="card card-outline-info">
         <div className="card-header">
-          <h4 className="mb-0 text-white">Edit Material</h4>
+          <h4 className="mb-0 text-white">Material</h4>
         </div>
 
         <div className="card-body">
