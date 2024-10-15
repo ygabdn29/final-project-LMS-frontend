@@ -48,12 +48,12 @@ function Dashboard({ children }) {
           </div>
           <div className="sidebar-footer"></div>
         </aside>
-
-        <div className="page-wrapper">
+              <Outlet></Outlet>
+        {/* <div className="page-wrapper">
           <div className="container-fluid">
             <Outlet></Outlet>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
