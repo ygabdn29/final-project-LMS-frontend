@@ -81,10 +81,7 @@ const EditMaterial = () => {
         </ol>
       </div>
 
-      <div
-        className="card card-outline-info"
-        style={{ backgroundColor: "#f8f9fa" }}
-      >
+      <div className="card card-outline-info">
         <div className="card-header">
           <h4 className="mb-0 text-white">Course Detail</h4>
         </div>

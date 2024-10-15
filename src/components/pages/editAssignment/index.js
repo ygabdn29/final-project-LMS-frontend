@@ -2,6 +2,8 @@ import axios from "axios";
 import { error } from "jquery";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 function EditAssignment() {
   const { courseId, materialId, assignmentId } = useParams();
@@ -25,6 +27,13 @@ function EditAssignment() {
     const { name, value } = e.target;
 
     setAssignment((oldAssignment) => ({ ...oldAssignment, [name]: value }));
+  };
+
+  const handleContentChange = (value) => {
+    setAssignment((assignment) => ({
+      ...assignment,
+      content: value,
+    }));
   };
 
   const handleSubmit = (e) => {
@@ -118,7 +127,7 @@ function EditAssignment() {
           <h4 className="mb-0 text-white">Assignment</h4>
         </div>
         <form className="form-group shadow p-4 rounded" onSubmit={handleSubmit}>
-          <div className="mb-3">
+          <div className="col-lg-12 mb-3">
             <label htmlFor="title" className="form-label">
               <strong>Assignment Title</strong>
             </label>
@@ -132,49 +141,51 @@ function EditAssignment() {
             />
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="title" className="form-label">
+          <div className="col-lg-12 Smb-3">
+            <label htmlFor="content" className="form-label">
               <strong>Content</strong>
             </label>
-            <textarea
-              type="text"
-              id="content"
-              name="content"
-              className="form-control"
-              value={assignment?.content}
-              onChange={handleChange}
-              placeholder={assignment?.content}
-            />
+            <div className="mb-3">
+              <ReactQuill
+                theme="snow"
+                value={assignment?.content}
+                onChange={(e) => handleContentChange(e)}
+                placeholder="Type your material content here..."
+                style={{ height: "200px", marginBottom: "50px" }}
+              />
+            </div>
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="title" className="form-label">
-              <strong>Passing Score</strong>
-            </label>
-            <input
-              type="number"
-              id="passingScore"
-              name="passingScore"
-              className="form-control"
-              value={assignment?.passingScore}
-              onChange={handleChange}
-              placeholder={assignment?.passingScore}
-            />
-          </div>
+          <div className="d-flex">
+            <div className="col-lg-6 mb-3">
+              <label htmlFor="passingScore" className="form-label">
+                <strong>Passing Score</strong>
+              </label>
+              <input
+                type="number"
+                id="passingScore"
+                name="passingScore"
+                className="form-control"
+                value={assignment?.passingScore}
+                onChange={handleChange}
+                placeholder={assignment?.passingScore}
+              />
+            </div>
 
-          <div className="mb-3">
-            <label htmlFor="title" className="form-label">
-              <strong>Due Date</strong>
-            </label>
-            <input
-              type="date"
-              id="dueDate"
-              name="dueDate"
-              className="form-control"
-              value={assignment?.dueDate}
-              onChange={handleChange}
-              placeholder={assignment?.dueDate}
-            />
+            <div className="col-lg-6 mb-3">
+              <label htmlFor="dueDate" className="form-label">
+                <strong>Due Date</strong>
+              </label>
+              <input
+                type="date"
+                id="dueDate"
+                name="dueDate"
+                className="form-control"
+                value={assignment?.dueDate}
+                onChange={handleChange}
+                placeholder={assignment?.dueDate}
+              />
+            </div>
           </div>
 
           <div className="text-center">
