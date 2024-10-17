@@ -24,6 +24,11 @@ import AdminDashboard from "./components/pages/adminDashboard/inedx";
 import NewAssignment from "./components/pages/Mentor/NewAssignment";
 import ListAssignment from "./components/pages/Mentee/ListAssignment";
 import ProtectedRoute from "./components/pages/ProtectedRoute";
+import { CourseMentee } from "./components/organism/accessCourseMentee/index2";
+import { EnrollCourseMentee } from "./components/organism/enrollCourseMentee";
+import { MaterialsPageMentee } from "./components/organism/materialsPageMentee";
+import { DetaiLMaterials } from "./components/organism/detailMaterials";
+import AccessCourseMentee from "./components/organism/accessCourseMentee";
 import ListMaterialAssignment from "./components/pages/listMaterialAssignment";
 import EditAssignment from "./components/pages/editAssignment";
 
@@ -41,6 +46,11 @@ function App() {
           {/* Register Route */}
           <Route path="/register" element={<Registration />}></Route>
 
+          <Route path="/menteetes" element={<CourseMentee/>}></Route>
+          <Route path="/enrollmentee" element={<EnrollCourseMentee/>}></Route>
+          <Route path="/materials-page/:courseId" element={<MaterialsPageMentee/>}></Route>
+          <Route path="/detailmaterial-page/:materialId" element={<DetaiLMaterials/>}></Route>
+
           {/* Verify Account Route */}
           <Route path="/verify/:guid" element={<EmailVerification />}></Route>
 
@@ -50,7 +60,7 @@ function App() {
                 index
                 element={
                   <ProtectedRoute>
-                    <EnrolledCourses />
+                    <CourseMentee />
                   </ProtectedRoute>
                 }
               />
@@ -59,23 +69,23 @@ function App() {
                   path="list"
                   element={
                     <ProtectedRoute>
-                      <EnrollCourse />
+                      <EnrollCourseMentee />
                     </ProtectedRoute>
                   }
                 ></Route>
                 <Route
-                  path=":courseId/materials"
+                  path="materials-page/:courseId"
                   element={
                     <ProtectedRoute>
-                      <ListMaterialMentee />
+                      <MaterialsPageMentee />
                     </ProtectedRoute>
                   }
                 />
                 <Route
-                  path=":courseId/material/:materialId"
+                  path="detailmaterial-page/:materialId"
                   element={
                     <ProtectedRoute>
-                      <MaterialDetail />
+                      <DetaiLMaterials />
                     </ProtectedRoute>
                   }
                 />
@@ -180,6 +190,7 @@ function App() {
             </Route>
           </Route>
         </Routes>
+       
       </BrowserRouter>
     </div>
   );
