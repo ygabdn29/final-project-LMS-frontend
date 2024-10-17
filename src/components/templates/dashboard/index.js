@@ -3,7 +3,7 @@ import { Link, Outlet } from "react-router-dom";
 
 function Dashboard({ children }) {
   const [user, setUser] = useState(
-    JSON.parse(sessionStorage.getItem("userDetails"))
+    JSON.parse(sessionStorage.getItem("userData"))
   );
 
   return (

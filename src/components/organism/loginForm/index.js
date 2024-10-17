@@ -55,16 +55,33 @@ function handleSubmit(e, username, password) {
     .post("http://localhost:8080/api/account/login", {
       username: username,
       password: password,
+      requestedRole: "Admin",
     })
     .then((response) => {
-      const userDetails = response.data.data;
-      sessionStorage.setItem("userDetails", JSON.stringify(userDetails));
+      const userData = response.data.data;
+      console.log(userData);
+      sessionStorage.setItem("userData", JSON.stringify(userData));
       alert(response.data.message);
-      let userRole = JSON.parse(sessionStorage.getItem("userDetails"));
-      if (userRole.userRole === "Mentee")
-        window.location.replace("http://localhost:3000/dashboard/mentee");
-      if (userRole.userRole === "Mentor")
+      let userDetails = JSON.parse(sessionStorage.getItem("userData"));
+      console.log("User Details: ", userDetails);
+      // if (!userDetails) {
+      //   alert("User data not found, please try logging in again.");
+      //   return;
+      // }
+      // if (!userDetails) {
+      //   alert("User data not found, please try logging in again.");
+      //   return;
+      // }
+      if (userDetails.primaryRole === "Mentee")
+        window.location.href = "http://localhost:3000/dashboard/mentee";
+      // window.location.replace("http://localhost:3000/dashboard/mentee");
+      else if (userDetails.primaryRole === "Mentor")
         window.location.replace("http://localhost:3000/dashboard/mentor");
+      else if (userDetails.primaryRole === "Admin")
+        window.location.replace("http://localhost:3000/dashboard/admin");
+      else {
+        console.error("Unknown role:", userDetails.primaryRole);
+      }
     })
     .catch((error) => alert(error));
 }

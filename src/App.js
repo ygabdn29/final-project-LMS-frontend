@@ -25,9 +25,12 @@ import NewAssignment from "./components/pages/Mentor/NewAssignment";
 import ListAssignment from "./components/pages/Mentee/ListAssignment";
 import ProtectedRoute from "./components/pages/ProtectedRoute";
 import ManageAsset from "./components/pages/ManageAsset";
+import ManageMentee from "./components/pages/ManageMentee";
+import ManageMentor from "./components/pages/ManageMentor";
+import ManageMetadata from "./components/pages/ManageMetadata";
 
 function App() {
-  const userDetails = JSON.parse(sessionStorage.getItem("userDetails"));
+  const userDetails = JSON.parse(sessionStorage.getItem("userData"));
 
   return (
     <div className="App">
@@ -165,6 +168,30 @@ function App() {
               element={
                 <ProtectedRoute>
                   <ManageAsset />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="manage/mentee"
+              element={
+                <ProtectedRoute>
+                  <ManageMentee />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="manage/mentor"
+              element={
+                <ProtectedRoute>
+                  <ManageMentor />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="manage/metadata"
+              element={
+                <ProtectedRoute>
+                  <ManageMetadata />
                 </ProtectedRoute>
               }
             />
