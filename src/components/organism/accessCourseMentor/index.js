@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 let AccessCourseMentor = () => {
   const [dataCourse, setDataCourse] = useState(null);
-  const userDetails = JSON.parse(sessionStorage.getItem("userDetails"));
+  const userDetails = JSON.parse(sessionStorage.getItem("userData"));
   const userId = userDetails?.userID;
 
   useEffect(() => {
