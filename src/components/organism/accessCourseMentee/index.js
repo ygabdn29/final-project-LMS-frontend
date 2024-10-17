@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 let AccessCourseMentee = () => {
   const [dataCourse, setDataCourse] = useState([]);
-  const userDetails = JSON.parse(sessionStorage.getItem("userDetails"));
+  const userDetails = JSON.parse(sessionStorage.getItem("userData"));
   const userId = userDetails?.userID;
 
   useEffect(() => {
