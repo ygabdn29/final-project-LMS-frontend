@@ -28,6 +28,8 @@ import ManageAsset from "./components/pages/ManageAsset";
 import ManageMentee from "./components/pages/ManageMentee";
 import ManageMentor from "./components/pages/ManageMentor";
 import ManageMetadata from "./components/pages/ManageMetadata";
+import ListMaterialAssignment from "./components/pages/listMaterialAssignment";
+import EditAssignment from "./components/pages/editAssignment";
 
 function App() {
   const userDetails = JSON.parse(sessionStorage.getItem("userData"));
@@ -120,6 +122,14 @@ function App() {
                   }
                 />
                 <Route
+                  path=":courseId/material/:materialId/assignments"
+                  element={
+                    <ProtectedRoute>
+                      <ListMaterialAssignment />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
                   path=":courseId/new-material"
                   element={
                     <ProtectedRoute>
@@ -140,6 +150,14 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <NewAssignment />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path=":courseId/material/:materialId/assignment/edit-assignment/:assignmentId"
+                  element={
+                    <ProtectedRoute>
+                      <EditAssignment></EditAssignment>
                     </ProtectedRoute>
                   }
                 />
