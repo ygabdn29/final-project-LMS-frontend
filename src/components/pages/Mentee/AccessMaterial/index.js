@@ -1,72 +1,143 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+
 import { Link, useParams } from "react-router-dom";
-import DOMPurify from "dompurify";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
 
 const MaterialDetail = () => {
-  const { courseId, materialId } = useParams();
+  const Home = '/dashboard/mentee';
+  const { materialId } = useParams();
   const [material, setMaterial] = useState(null);
-  const [error, setError] = useState("");
-
-  const fetchMaterial = () => {
-    axios
-      .get(
-        `http://localhost:8080/api/course/${courseId}/material/${materialId}`
-      )
-      .then((response) => {
-        if (response.data.status === "OK") {
-          setMaterial(response.data.data);
-        } else {
-          setError(response.data.message);
-        }
-      })
-      .catch((error) => {
-        setError("Error fetching material");
-        setMaterial(null);
-        console.error("Error fetching material:", error);
-      });
-  };
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    fetchMaterial();
-  }, [courseId, materialId]);
+    if (materialId) {
+      axios.get(`http://localhost:8080/api/course/material/${materialId}`)
+        .then((response) => {
+          if (response.data.message === "Success getting material") {
+            setMaterial(response.data.data);
+          } else {
+            setError(response.data.message);
+          }
+        })
+        .catch((error) => {
+          setError('Failed to fetch material details');
+          console.error(error);
+        });
+    }
+  }, [materialId]);
 
   return (
-    <div className="container-fluid mt-4">
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        {material ? (
-          <div className="row">
-            <div className="col-12">
-              <div className="card">
-                <div className="card-header bg-primary text-white">
-                  <h1 className="mb-0">Material - {material.title}</h1>
-                </div>
-                <div className="card-body text-start">
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: DOMPurify.sanitize(material.content),
-                    }}
-                    className="mb-3"
-                  />
-                  <Link to={`assignments`} className="btn btn-info">
-                    View Assignments
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="row justify-content-center">
-            <div className="col-md-6 text-center">
-              <div className="spinner-border" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
-            </div>
-          </div>
-        )}
+    <>
+
+      <div className="row page-titles">
+        <div className="col-md-6 col-8 align-self-center">
+          <h3 className="text-themecolor m-b-0 m-t-0">Details Materials</h3>
+          <ol className="breadcrumb">
+            <li className="breadcrumb-item"><Link to={Home}>Home</Link></li>
+            <li className="breadcrumb-item active">Details</li>
+          </ol>
+        </div>
       </div>
-    </div>
+
+      {error && <div className="alert alert-danger">{error}</div>}
+
+      <div className="row">
+        <div className="col-12">
+          <div className="card">
+            <div className="card-body">
+              <h4 className="card-title">Content Material</h4>
+              {material ? (
+                <div>
+                  <h6 className="card-subtitle">{material.content}</h6>
+                  {/* Additional details of the material can be displayed here */}
+                </div>
+              ) : (
+                <p>Loading material details...</p>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* List of Assignments Section */}
+      <div className="row">
+        <div className="col-12">
+          <div className="card">
+            <div className="card-body">
+              <h4 className="card-title">List Of Assignment</h4>
+              <div className="table-responsive">
+                <table className="table m-t-30 table-hover contact-list" data-page-size="10">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Answer</th>
+                      <th>Score</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <tr>
+                      <td>1</td>
+                      <td>
+                        <a href="#"><img src="../assets/images/users/4.jpg" alt="user" width="40" className="img-circle" /> Sample Answer</a>
+                      </td>
+                      <td>100</td>
+                      <td>
+                        <button type="button" className="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete">
+                          <i className="ti-close" aria-hidden="true"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="2">
+                        <button type="button" class="btn btn-info btn-rounded" data-toggle="modal" data-target="#add-contact">Add New Assignment</button>
+                      </td>
+                      <div id="add-contact" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                              <h4 class="modal-title" id="myModalLabel">Add New Assignment</h4> </div>
+                            <div class="modal-body">
+                              <from class="form-horizontal form-material">
+                                <div class="form-group">
+                                  <div class="col-md-12 m-b-20">
+                                    <input type="text" class="form-control" placeholder="Jawaban" /> </div>
+                                  <div class="col-md-12 m-b-20">
+                                    <div class="fileupload btn btn-danger btn-rounded waves-effect waves-light"><span><i class="ion-upload m-r-5"></i>Upload Assignment</span>
+                                      <input type="file" class="upload" /> </div>
+                                  </div>
+                                </div>
+                              </from>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-info waves-effect" data-dismiss="modal">Save</button>
+                              <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                            </div>
+                          </div>
+
+                        </div>
+
+                      </div>
+                      <td colspan="7">
+                        <div class="text-right">
+                          <ul class="pagination"> </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
-};
+}
 
 export default MaterialDetail;

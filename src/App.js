@@ -1,9 +1,9 @@
 import AddMaterial from "./components/pages/Mentor/NewMaterial";
 import CourseListMentee from "./components/pages/Mentee/ListCourseMentee";
 import CourseListMentor from "./components/pages/Mentor/ListCourseMentor";
-import ListMaterialMentee from "./components/pages/Mentee/ListMaterialMentee";
+import ListMaterialMentee from "./components/pages/Mentee/ListMaterialMentee"
 import ListMaterialMentor from "./components/pages/Mentor/ListMaterialMentor";
-import MaterialDetail from "./components/pages/Mentee/AccessMaterial";
+import MaterialDetail from "./components/pages/Mentee/AccessMaterial"
 import EditMaterial from "./components/pages/Mentor/UpdateMaterial";
 import Material from "./components/pages/Mentor/AccessMaterialMentor";
 import EmailVerification from "./components/pages/emailVerification";
@@ -13,8 +13,6 @@ import Registration from "./components/pages/registration";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import SubmitAssignment from "./components/pages/Mentee/SubmitAssignment";
-import EnrollCourse from "./components/pages/enrollCourse";
-import EnrolledCourses from "./components/pages/enrolledCourses";
 import AssignedCourse from "./components/pages/assignedCourse";
 import ManageCourses from "./components/pages/manageCourses";
 import GradeSubmission from "./components/pages/gradeSubmission";
@@ -30,6 +28,8 @@ import ManageMentor from "./components/pages/ManageMentor";
 import ManageMetadata from "./components/pages/ManageMetadata";
 import ListMaterialAssignment from "./components/pages/listMaterialAssignment";
 import EditAssignment from "./components/pages/editAssignment";
+import { EnrollCourse } from "./components/pages/enrollCourse";
+import EnrolledCourses from "./components/pages/enrolledCourses";
 
 function App() {
   const userDetails = JSON.parse(sessionStorage.getItem("userData"));
@@ -54,7 +54,7 @@ function App() {
                 index
                 element={
                   <ProtectedRoute>
-                    <EnrolledCourses />
+                    <EnrollCourse />
                   </ProtectedRoute>
                 }
               />
@@ -63,12 +63,12 @@ function App() {
                   path="list"
                   element={
                     <ProtectedRoute>
-                      <EnrollCourse />
+                      <EnrolledCourses />
                     </ProtectedRoute>
                   }
                 ></Route>
                 <Route
-                  path=":courseId/materials"
+                  path="materials-page/:courseId"
                   element={
                     <ProtectedRoute>
                       <ListMaterialMentee />
@@ -76,7 +76,7 @@ function App() {
                   }
                 />
                 <Route
-                  path=":courseId/material/:materialId"
+                  path="detailmaterial-page/:materialId"
                   element={
                     <ProtectedRoute>
                       <MaterialDetail />
