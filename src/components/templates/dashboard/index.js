@@ -26,9 +26,13 @@ function Dashboard({ children }) {
               <ul className="in">
                 {user.userRole === "Mentee" ? (
                   <>
+                   <li className="active">
+                      <Link to="mentee">Course</Link>
+                    </li>
                     <li className="active">
                       <Link to="mentee/course/list">Enroll Course</Link>
                     </li>
+
                     <li className="active">
                       <a className="" onClick={(e) => handleLogout(e)}>
                         Logout

@@ -2,7 +2,7 @@ import FE from '../../../images/users/FE.png';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 
 export let EnrollCourse = () => {
   const [courses, setCourses] = useState([]);
@@ -21,7 +21,7 @@ export let EnrollCourse = () => {
 
   // Function to handle SweetAlert and enrollment API call
   const handleEnroll = (courseId) => {
-    const swalWithBootstrapButtons = swal.mixin({
+    const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
         cancelButton: 'btn btn-danger',
@@ -45,15 +45,15 @@ export let EnrollCourse = () => {
 
         axios.post('http://localhost:8080/api/course/enroll', { courseId, userId })
           .then((response) => {
-            swal.fire('Enroll!', 'Successfully Enrolled.', 'success').then(() => {
+            Swal.fire('Enroll!', 'Successfully Enrolled.', 'success').then(() => {
               window.location.href = '/dashboard/mentee/course/list';
             });
           })
           .catch((error) => {
-            swal.fire('Error', 'Error when enrolling course', 'error');
+            Swal.fire('Error', 'Error when enrolling course', 'error');
             console.error('Failed to enroll:', error);
           });
-      } else if (result.dismiss === swal.DismissReason.cancel) {
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
         swalWithBootstrapButtons.fire({
           title: 'Cancelled',
           text: 'Cancelled Enrollment',
