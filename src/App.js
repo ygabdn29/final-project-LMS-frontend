@@ -18,17 +18,21 @@ import ManageCourses from "./components/pages/manageCourses";
 import GradeSubmission from "./components/pages/gradeSubmission";
 import MenteeDashboard from "./components/pages/Mentee/MenteeDashboard";
 import MentorDashboard from "./components/pages/Mentor/MentorDashboard";
-import AdminDashboard from "./components/pages/adminDashboard/inedx";
+import AdminDashboard from "./components/pages/adminDashboard/index";
 import NewAssignment from "./components/pages/Mentor/NewAssignment";
 import ListAssignment from "./components/pages/Mentee/ListAssignment";
 import ProtectedRoute from "./components/pages/ProtectedRoute";
+import ManageAsset from "./components/pages/ManageAsset";
+import ManageMentee from "./components/pages/ManageMentee";
+import ManageMentor from "./components/pages/ManageMentor";
+import ManageMetadata from "./components/pages/ManageMetadata";
 import ListMaterialAssignment from "./components/pages/listMaterialAssignment";
 import EditAssignment from "./components/pages/editAssignment";
 import { EnrollCourse } from "./components/pages/enrollCourse";
 import EnrolledCourses from "./components/pages/enrolledCourses";
 
 function App() {
-  const userDetails = JSON.parse(sessionStorage.getItem("userDetails"));
+  const userDetails = JSON.parse(sessionStorage.getItem("userData"));
 
   return (
     <div className="App">
@@ -177,7 +181,40 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route
+              path="manage/assets"
+              element={
+                <ProtectedRoute>
+                  <ManageAsset />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="manage/mentee"
+              element={
+                <ProtectedRoute>
+                  <ManageMentee />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="manage/mentor"
+              element={
+                <ProtectedRoute>
+                  <ManageMentor />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="manage/metadata"
+              element={
+                <ProtectedRoute>
+                  <ManageMetadata />
+                </ProtectedRoute>
+              }
+            />
             </Route>
+            
           </Route>
         </Routes>
       </BrowserRouter>
