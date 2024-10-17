@@ -65,7 +65,7 @@ let AccessCourseMentee = () => {
             <li
               key={courses?.course?.id || Math.random()} // Fallback to a random key if id is undefined
               className="card card-outline-info"
-            >
+            >\
               <div className="card-header">
                 <h2 className="mb-1">Course Title:</h2>
                 <h2>{courses?.course?.title || 'No Title Available'}</h2>
