@@ -29,8 +29,8 @@ import { EnrollCourseMentee } from "./components/organism/enrollCourseMentee";
 import { MaterialsPageMentee } from "./components/organism/materialsPageMentee";
 import { DetaiLMaterials } from "./components/organism/detailMaterials";
 import AccessCourseMentee from "./components/organism/accessCourseMentee";
-
-
+import ListMaterialAssignment from "./components/pages/listMaterialAssignment";
+import EditAssignment from "./components/pages/editAssignment";
 
 function App() {
   const userDetails = JSON.parse(sessionStorage.getItem("userDetails"));
@@ -128,6 +128,14 @@ function App() {
                   }
                 />
                 <Route
+                  path=":courseId/material/:materialId/assignments"
+                  element={
+                    <ProtectedRoute>
+                      <ListMaterialAssignment />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
                   path=":courseId/new-material"
                   element={
                     <ProtectedRoute>
@@ -148,6 +156,14 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <NewAssignment />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path=":courseId/material/:materialId/assignment/edit-assignment/:assignmentId"
+                  element={
+                    <ProtectedRoute>
+                      <EditAssignment></EditAssignment>
                     </ProtectedRoute>
                   }
                 />
