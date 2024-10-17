@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import FormMaterialQuill from "../../../organism/FormMaterialQuill"; // Pastikan path-nya sesuai dengan file Anda
 import axios from "axios";
 
@@ -19,7 +19,7 @@ const AddMaterial = () => {
       .then((response) => {
         setMessage(response.data.message);
         setError("");
-        navigate(`/mentor/course/${courseId}/materials`);
+        navigate(`/dashboard/mentor/course/${courseId}/materials`);
       })
       .catch((error) => {
         setError("Failed to add material");
@@ -32,7 +32,7 @@ const AddMaterial = () => {
     axios
       .get(`http://localhost:8080/api/course/${courseId}`)
       .then((response) => {
-        setCourse(response.data.data.title);
+        setCourse(response.data.data);
         setError("");
       })
       .catch((error) => {
@@ -43,15 +43,44 @@ const AddMaterial = () => {
 
   useEffect(() => {
     fetchCourse();
-  });
+  }, []);
 
   return (
-    <div>
-      <h2>Add New Material to {course}</h2>
+    <>
+      <div className="page-titles">
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item">
+            <Link to="/dashboard/mentor">Dashboard</Link>
+          </li>
+          <li className="breadcrumb-item">
+            <Link to={`/dashboard/mentor/course/${course?.id}/materials`}>
+              Materials
+            </Link>
+          </li>
+          <li className="breadcrumb-item active">New Material</li>
+        </ol>
+      </div>
+
+      <div className="card card-outline-info">
+        <div className="card-header">
+          <h4 className="text-white mb-0">Course Detail</h4>
+        </div>
+        <div className="d-flex flex-column card-body">
+          <label>
+            Course Title:
+            <span className="ml-2 font-bold">{`${course?.title}`}</span>
+            {console.log(course)}
+          </label>
+          <label>
+            Course Mentor:
+            <span className="ml-2 font-bold">{`${course?.mentor?.username}`}</span>
+          </label>
+        </div>
+      </div>
       {message && <p>{message}</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
       <FormMaterialQuill onSubmit={handleFormMaterial} />
-    </div>
+    </>
   );
 };
 
